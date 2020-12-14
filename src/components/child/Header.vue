@@ -1,0 +1,220 @@
+<template>
+  <div
+    :class="{
+      wrap_top: currentScrollValue < 380,
+      wrap_top_roll: currentScrollValue >= 380,
+    }"
+  >
+    <div class="left">
+      <img
+        @click="goMain()"
+        style="width: 50%; margin-left: 34px"
+        src="../../../static/image/logo.png"
+      />
+    </div>
+    <div class="mid">
+      <div style="display: flex; cursor: pointer">
+        <p
+          @click="goAdopt1"
+          class="navi"
+          :class="{ normal_navi: !isAdopt1, under_navi: isAdopt1 }"
+        >
+          가정분양
+        </p>
+        <p
+          @click="goAdopt2"
+          class="navi"
+          :class="{ normal_navi: !isAdopt2, under_navi: isAdopt2 }"
+          v-model ="navi_2"
+        >
+          유기견분양
+        </p>
+        <p
+          @click="goMarket"
+          class="navi"
+          :class="{ normal_navi: !isMarket, under_navi: isMarket }"
+          v-model="navi_3"
+        >
+          소품장터
+        </p>
+        <p
+          @click="goCommunity"
+          class="navi"
+          :class="{ normal_navi: !isComm, under_navi: isComm }"
+          v-model="navi_4"
+        >
+          커뮤니티
+        </p>
+      </div>
+    </div>
+    <div class="right">
+      <div style="display: flex; margin-left: 188px">
+        <div class="menu_img" @click="goLogin">
+          <img src="../../../static/image/로그인.png" />
+          <p class="menu_text" style="min-width: 50px">로그인</p>
+        </div>
+        <div class="menu_img" @click="goMyPage">
+          <img src="../../../static/image/마이페이지.png" />
+          <p class="menu_text" style="min-width: 60px">마이페이지</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+// $(document).ready(function () {
+//   $(window).scroll(function (){
+//     var scroll = $(window).scrollTop();
+//     if(scroll>1){
+//       $(".wrap_top").css("background", "white");
+//     }
+//     else {
+//       $(".wrap_top").css("background", "black");
+//     }
+//   })
+// })
+
+export default {
+  name: "Header",
+  props: ['isAdopt1', 'isAdopt2', 'isMarket', 'isComm'],
+  data() {
+    return {
+      // navi_1: false, //props사용하여 하나의 데이터로 제어
+      // navi_2: false, //해당 전역변수들은 필요없어짐
+      // navi_3: false,
+      // navi_4: false,
+      currentScrollValue: 0,
+    };
+  },
+
+  methods: {
+    // *페이지이동 함수모음*
+    //가정분양
+    goAdopt1() {
+      this.$router.push({path: '/adopt1'});
+      // this.navi_1 = true;
+      // this.navi_2 = false;
+      // this.navi_3 = false;
+      // this.navi_4 = false;
+    },
+    //유기견분양
+    goAdopt2() {
+      this.$router.push({ path: "/adopt2" });
+    },
+    //소품장터
+    goMarket() {
+      this.$router.push({ path: "/market" });
+
+    },
+    //커뮤니티
+    goCommunity() {
+      this.$router.push({ path: "/community" });
+
+    },
+    //메인이동
+    goMain() {
+      this.$router.push({ path: "/" });
+    },
+    //로그인
+    goLogin() {
+      this.$router.push({ path: "/login" });
+    },
+    //마이페이지
+    goMyPage() {
+      this.$router.push({ path: "/myPage/" + id });
+    },
+  },
+
+  created() {
+    let vue = this;
+    document.addEventListener("scroll", function () {
+      vue.currentScrollValue = document.documentElement.scrollTop;
+      console.log("currentScrollValue is " + vue.currentScrollValue);
+    });
+  },
+};
+</script>
+
+<style scoped>
+.wrap_top {
+  position: fixed;
+  display: flex;
+  /*justify-content: space-between;*/
+  max-width: 1920px;
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid lavender;
+  z-index: 9999;
+  /*background: rgba(0, 0, 0, 1);*/
+}
+
+.cursor {
+
+}
+
+/*.wrap_top_roll {*/
+/*  position: fixed;*/
+/*  display: flex;*/
+/*  !*justify-content: space-between;*!*/
+/*  max-width: 1920px;*/
+/*  height: 100px;*/
+/*  border-bottom: 1px solid lavender;*/
+/*  !*background: rgba(0, 0, 0, 1);*!*/
+/*  background: rgba(255, 255, 255, 1);*/
+/*  z-index: 9999;*/
+/*}*/
+
+.left {
+  display: flex;
+  align-items: center;
+
+  width: 360px;
+  min-width: 360px;
+  max-width: 360px;
+  height: 100px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  width: 360px;
+}
+.navi {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 98px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.normal_navi {
+  width: 300px;
+  height: 98px;
+  font-size: 22px;
+  font-weight: bold;
+}
+.under_navi {
+  width: 300px;
+  height: 98px;
+  font-size: 22px;
+  font-weight: bold;
+  /*position: absolute;*/
+  border-bottom: 2px solid white;
+}
+
+.menu_img {
+  height: 46px;
+  margin-right: 3px;
+}
+
+.menu_text {
+  margin-top: 7px;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 13px;
+}
+</style>
