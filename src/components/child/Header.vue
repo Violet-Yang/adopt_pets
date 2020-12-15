@@ -25,7 +25,6 @@
           @click="goAdopt2"
           class="navi"
           :class="{ normal_navi: !isAdopt2, under_navi: isAdopt2 }"
-          v-model ="navi_2"
         >
           유기견분양
         </p>
@@ -33,7 +32,6 @@
           @click="goMarket"
           class="navi"
           :class="{ normal_navi: !isMarket, under_navi: isMarket }"
-          v-model="navi_3"
         >
           소품장터
         </p>
@@ -41,7 +39,6 @@
           @click="goCommunity"
           class="navi"
           :class="{ normal_navi: !isComm, under_navi: isComm }"
-          v-model="navi_4"
         >
           커뮤니티
         </p>
@@ -153,17 +150,17 @@ export default {
 
 }
 
-/*.wrap_top_roll {*/
-/*  position: fixed;*/
-/*  display: flex;*/
-/*  !*justify-content: space-between;*!*/
-/*  max-width: 1920px;*/
-/*  height: 100px;*/
-/*  border-bottom: 1px solid lavender;*/
-/*  !*background: rgba(0, 0, 0, 1);*!*/
-/*  background: rgba(255, 255, 255, 1);*/
-/*  z-index: 9999;*/
-/*}*/
+.wrap_top_roll {
+  position: fixed;
+  display: flex;
+  /*justify-content: space-between;*/
+  max-width: 1920px;
+  height: 100px;
+  border-bottom: 1px solid lavender;
+  /*background: rgba(0, 0, 0, 1);*/
+  background: rgba(255, 255, 255, 1);
+  z-index: 9999;
+}
 
 .left {
   display: flex;

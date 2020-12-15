@@ -10,7 +10,7 @@ import Policy from "../components/Policy";
 import Adopt1 from "../components/Adopt1";
 import Adopt2 from "../components/Adopt2";
 import Market from "../components/Market";
-import Community from "../components/Community";
+import Community from "../components/Community-notice";
 
 Vue.use(Router)
 
