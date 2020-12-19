@@ -11,6 +11,7 @@ import Adopt1 from "../components/Adopt1";
 import Adopt2 from "../components/Adopt2";
 import Market from "../components/Market";
 import Community from "../components/Community-notice";
+import Writing from "../components/Community-write"
 
 Vue.use(Router)
 
@@ -70,6 +71,11 @@ export default new Router({
       path: '/community',
       name: 'Community',
       component: Community
+    },
+    {
+      path: '/writing',
+      name: 'Writing',
+      component: Writing
     },
 
   ]
