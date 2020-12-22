@@ -10,7 +10,7 @@
 <script>
 import Header from "./child/Header";
 export default {
-  name: "Adopt1",
+  name: "HomeAdopt",
   data() {
     return {};
   },

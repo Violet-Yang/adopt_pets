@@ -18,14 +18,14 @@
         height: 287px;
       "
     >
-      <div style="width: 287px; height: 233px; background-color: gold">
+      <div style="width: 287px; height: 233px;">
         <img
           style="width: 100%; height: 100%"
           src="../../static/image/baro0.png"
         />
       </div>
 
-      <div class="baro" style="position: relative">
+      <div class="baro" style="position: relative;">
         <img
           style="width: 100%; height: 100%;"
           src="../../static/image/baro1.png"
@@ -35,25 +35,56 @@
             position: absolute;
             width: 100%;
             top: 0;
-            z-index: 9999;
+            z-index: 3;
             display: flex;
             flex-direction: column;
             align-items: center;
           "
         >
           <div class="text_baro">강아지/고양이/기타반려동물 가정분양</div>
-          <p class="btn_baro">바로가기</p>
+          <p class="btn_baro" @click="goHomeAdopt()">바로가기</p>
         </div>
       </div>
 
-      <div class="baro" style="background-color: #2c3e50">
-        <div></div>
-        <div class="text_baro">강아지/고양이/기타반려동물 유기견분양</div>
-        <p class="btn_baro">바로가기</p>
+      <div class="baro" style="position: relative;">
+        <img
+          style="width: 100%; height: 100%;"
+          src="../../static/image/baro2.png"
+        />
+        <div
+          style="
+            position: absolute;
+            width: 100%;
+            top: 0;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          "
+        >
+          <div class="text_baro">강아지/고양이/기타반려동물 유기견분양</div>
+          <p class="btn_baro" @click="goCenterAdopt()">바로가기</p>
+        </div>
       </div>
-      <div class="baro" style="background-color: cornflowerblue">
-        <div class="text_baro">반려동물<br />소품장터</div>
-        <p class="btn_baro">바로가기</p>
+      <div class="baro" style="position: relative;">
+        <img
+          style="width: 100%; height: 100%;"
+          src="../../static/image/baro3.png"
+        />
+        <div
+          style="
+            position: absolute;
+            width: 100%;
+            top: 0;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          "
+        >
+          <div class="text_baro">반려동물<br> 소품장터</div>
+          <p class="btn_baro" @click="goMarket()">바로가기</p>
+        </div>
       </div>
     </div>
 
@@ -136,7 +167,7 @@
               style="width: 467px; height: 171px; margin-top: 20px"
 
             >
-              입양해듀오는 반려동물을 맞이하고픈 가족들을 위해 탄생하게
+              입양해듀오는 반려동물을 맞이하고픈 가족들을 위해 탄생하게<br>
               되었습니다. 평생을 함께 한다는 의미의 「반려」 소중한 가족들과의
               만남을 위해 입양해듀오가 함께합니다.
             </p>
@@ -160,8 +191,10 @@
 </template>
 
 <script>
-
+import axios from "axios"; // Axios 임포트
+import { adopt } from "./url";
 export default {
+
   name: "Main",
   data() {
     return {
@@ -170,12 +203,50 @@ export default {
     };
   },
   methods: {
+    sendRequest() {
+      // 서버통신예제
+      let vue = this;
+      this.isLoading = true;
+      console.log(axios);
+      axios
+        .get(adopt)
+        .then((res) => {
+          // 여기는 결과값(response data)을 받는 곳
+          console.log(res);
+          if (res.status === 200) {
+            // 성공 처리
+            console.log(res.data.content);
+            vue.testList = res.data.content;
+            // vue.isLoading = false;
+          }
+        })
+        .catch((error) => {
+          // 여기는 400이상 에러들이 발생하면 여기로 나오는곳
+          console.log(error);
+        });
+    },
 
+    // *페이지이동 함수모음*
+    //가정분양
+    goHomeAdopt() {
+      this.$router.push({path: '/homeAdopt'});
+    },
+    //유기견분양
+    goCenterAdopt() {
+      this.$router.push({ path: "/centerAdopt" });
+    },
+    //소품장터
+    goMarket() {
+      this.$router.push({ path: "/market" });
+    },
+    //커뮤니티
     goBoard() {
       this.$router.push({ path: "/Board/" });
     },
   },
-  created() {},
+  created() {
+    this.sendRequest();
+  },
 };
 </script>
 
@@ -189,6 +260,7 @@ export default {
 .scale:hover {
   transform: scale(1.2);
   overflow: hidden;
+  cursor:pointer;
 }
 
 #main_wrap {
@@ -210,13 +282,20 @@ export default {
   margin-left: 16px;
   font-size: 18px;
   line-height: 21px;
-  color: #ffffff;
+
+  opacity: 1;
+}
+
+.baro img {
+  filter: brightness(50%);
+  /*opacity: 0.5;*/
 }
 
 .text_baro {
   margin-top: 61px;
   width: 236px;
   height: 42px;
+  color: #ffffff;
 }
 
 .btn_baro {
@@ -227,6 +306,8 @@ export default {
   width: 150px;
   height: 40px;
   border: 1px solid #ffffff;
+  color: #ffffff;
+  cursor:pointer;
 }
 
 .news_text {

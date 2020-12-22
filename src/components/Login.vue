@@ -31,7 +31,7 @@
           </div>
         </div>
 
-        <btn-div style="margin-top: 25px; margin-bottom: 107px" :btn-text="'로그인하기'" />
+        <btnDivs style="margin-top: 25px; margin-bottom: 107px" :btn-text="'로그인하기'" />
       </div>
     </div>
 

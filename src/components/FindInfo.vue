@@ -30,13 +30,13 @@
               display: flex;
               width: 658px;
               height: 43px;
-              border-bottom: 3px solid #d4d4d4;
+
             "
           >
             <div
               @click="tapId()"
               :class="{
-                active_id: isNum,
+                active_id: isNum, passive_id : !isNum
               }"
               style="width: 50%; display: flex; justify-content: center"
             >
@@ -44,7 +44,7 @@
             </div>
             <div
               @click="tapPwd()"
-              :class="{ active_pwd: !isNum}"
+              :class="{ active_pwd: !isNum, passive_pwd : isNum}"
               style="width: 50%; display: flex; justify-content: center"
             >
               비밀번호찾기
@@ -52,7 +52,7 @@
           </div>
           <commDiv />
 
-          <btn-div
+          <btnDivs
             style="margin-top: 25px; margin-bottom: 30px"
             :btn-text="'아이디찾기'"
           />
@@ -76,13 +76,13 @@
               display: flex;
               width: 658px;
               height: 43px;
-              border-bottom: 3px solid #d4d4d4;
+
             "
           >
             <div
               @click="tapId()"
               :class="{
-                active_id: isNum,
+                active_id: isNum, passive_id : !isNum,
               }"
               style="width: 50%; display: flex; justify-content: center"
             >
@@ -90,7 +90,7 @@
             </div>
             <div
               @click="tapPwd()"
-              :class="{ active_pwd: isNum}"
+              :class="{ active_pwd: !isNum, passive_pwd : isNum}"
               style="width: 50%; display: flex; justify-content: center"
             >
               비밀번호찾기
@@ -98,7 +98,7 @@
           </div>
           <commDiv />
 
-          <btn-div
+          <btnDivs
             style="margin-top: 25px; margin-bottom: 30px"
             :btn-text="'비밀번호찾기'"
           />
@@ -106,8 +106,8 @@
       </div>
 
       <div style="margin-bottom: 103px">
-        <span @click="goLogin()">로그인</span>
-        <span>회원가입</span>
+        <span class="hr-sect" @click="goLogin()">로그인</span>
+        <span @click="goJoin()">회원가입</span>
       </div>
     </div>
 
@@ -130,16 +130,18 @@ export default {
     tapId() {
       this.isNum = true;
     },
-
     tapPwd() {
       this.isNum = false;
     },
-
+    //로그인페이지로 이동
     goLogin() {
       this.$router.push({ path: "/login" });
     },
+    //회원가입페이지로 이동
+    goJoin() {
+      this.$router.push({path:"join"})
+    },
 
-    getNum() {},
   },
 
   created: function () {
@@ -199,6 +201,12 @@ export default {
   font-size: 18px;
 }
 
+.hr-sect::after {
+  border-right: 1px solid #b7b7b7;
+  height: 100px;
+  margin: 5px;
+}
+
 .active_id {
   border-bottom: 3px solid #66cdcc;
   color: #66cdcc;
@@ -207,5 +215,14 @@ export default {
 .active_pwd {
   border-bottom: 3px solid #66cdcc;
   color: #66cdcc;
+}
+
+.passive_id {
+  border-bottom: 3px solid #d4d4d4;
+  color: #d4d4d4;
+}
+.passive_pwd {
+  border-bottom: 3px solid #d4d4d4;
+  color: #d4d4d4;
 }
 </style>

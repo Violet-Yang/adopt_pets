@@ -1,8 +1,8 @@
 <template>
   <div
     :class="{
-      wrap_top: currentScrollValue < 380,
-      wrap_top_roll: currentScrollValue >= 380,
+      wrap_top: currentScrollValue < 100,
+      wrap_top_roll: currentScrollValue >= 100,
     }"
   >
     <div class="left">
@@ -15,19 +15,21 @@
     <div class="mid">
       <div style="display: flex; cursor: pointer">
         <p
-          @click="goAdopt1"
+          @click="goHomeAdopt"
           class="navi"
           :class="{ normal_navi: !isAdopt1, under_navi: isAdopt1 }"
         >
           가정분양
         </p>
-        <p
-          @click="goAdopt2"
-          class="navi"
-          :class="{ normal_navi: !isAdopt2, under_navi: isAdopt2 }"
-        >
-          유기견분양
-        </p>
+        <div class="navi" style="display: flex; align-items: center; justify-content: center">
+          <p
+            @click="goCenterAdopt"
+
+            :class="{ normal_navi: !isAdopt2, under_navi: isAdopt2}"
+          >
+            유기견분양
+          </p>
+        </div>
         <p
           @click="goMarket"
           class="navi"
@@ -88,26 +90,24 @@ export default {
   methods: {
     // *페이지이동 함수모음*
     //가정분양
-    goAdopt1() {
-      this.$router.push({path: '/adopt1'});
+    goHomeAdopt() {
+      this.$router.push({path: '/homeAdopt'});
       // this.navi_1 = true;
       // this.navi_2 = false;
       // this.navi_3 = false;
       // this.navi_4 = false;
     },
     //유기견분양
-    goAdopt2() {
-      this.$router.push({ path: "/adopt2" });
+    goCenterAdopt() {
+      this.$router.push({ path: "/centerAdopt" });
     },
     //소품장터
     goMarket() {
       this.$router.push({ path: "/market" });
-
     },
     //커뮤니티
     goCommunity() {
       this.$router.push({ path: "/community" });
-
     },
     //메인이동
     goMain() {
@@ -178,7 +178,7 @@ export default {
   width: 360px;
 }
 .navi {
-  position: relative;
+  /*position: relative;*/
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,14 +189,14 @@ export default {
 }
 
 .normal_navi {
-  width: 300px;
-  height: 98px;
+  /*width: 300px;*/
+  /*height: 98px;*/
   font-size: 22px;
   font-weight: bold;
 }
 .under_navi {
-  width: 300px;
-  height: 98px;
+  /*width: 300px;*/
+  /*height: 100px;*/
   font-size: 22px;
   font-weight: bold;
   /*position: absolute;*/

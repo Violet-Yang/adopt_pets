@@ -2,47 +2,85 @@
   <div>
     <!--header-->
     <top :is-comm="true" />
-    <img src="static/image/공지사항이미지.png" />
+    <img style="max-width: 1920px; position: relative" src="static/image/공지사항이미지.png" />
+    <div style="position: absolute; top :191px; left: 821px;"  class="main_img_text">집사게시판</div>
+    <div style="position: absolute; left: 362px; display: flex; width: 1200px; height: 80px; background-color: #010000; opacity: 0.6">
+      <div>공지사항</div>
+      <div>집사게시판</div>
+    </div>
     <!--여분 div-->
-    <div style="">
-      <!--검색박스 컴포넌트 주입-->
-      <schDiv />
+    <div class="flex-all-center">
+      <div>
+        <div style="display: flex;  margin-top: 103px">
+          <div @click="tapDog()" style="width: 400px" class="board_tap" :class="{active_tap : status[0]===true, passive_tap : status[0]===false}">
+            <p>강아지 집사</p>
+          </div>
+          <div @click="tapCat()" style="width: 400px" class="board_tap" :class="{active_tap : status[1]===true, passive_tap : status[1]===false}">
+            <p>고양이 집사</p>
+          </div>
+          <div @click="tapExtra()" style="width: 400px" class="board_tap" :class="{active_tap : status[2]===true, passive_tap : status[2]===false}">
+            <p >기타동물 집사</p>
+          </div>
 
-      <!--게시판 테이블-->
-      <div style="margin-top: 14px; margin-bottom: 43px">
-        <div style="display: flex; height: 70px; width: 1200px">
-          <div class="board_title" style="width: 144px">번호</div>
-          <div class="board_title" style="width: 668px">제목</div>
-          <div class="board_title" style="width: 184px">작성자</div>
-          <div class="board_title" style="width: 204px">등록일</div>
         </div>
-        <div
-          v-for="eachBoard in itemBoard"
-          style="display: flex; height: 70px; width: 1200px"
-        >
-          <div class="board_writing" style="width: 144px">
-            {{ eachBoard.brdNum }}
+
+        <!--검색박스 컴포넌트 주입-->
+        <schDiv style="margin-top: 53px"/>
+        <!--게시판 테이블-->
+        <div style="margin-top: 14px; margin-bottom: 43px">
+          <div style="display: flex; height: 70px; width: 1200px">
+            <div class="board_title" style="width: 144px">번호</div>
+            <div class="board_title" style="width: 668px">제목</div>
+            <div class="board_title" style="width: 184px">작성자</div>
+            <div class="board_title" style="width: 204px">등록일</div>
           </div>
-          <div class="board_writing" style="width: 668px">
-            {{ eachBoard.title }}
+          <div
+            v-for="eachBoard in itemBoard"
+            style="display: flex; height: 70px; width: 1200px"
+          >
+            <div class="board_writing" style="width: 144px">
+              {{ eachBoard.brdNum }}
+            </div>
+            <div class="board_writing" style="width: 668px">
+              {{ eachBoard.title }}
+            </div>
+            <div class="board_writing" style="width: 184px">
+              {{ eachBoard.host }}
+            </div>
+            <div class="board_writing" style="width: 204px">
+              {{ eachBoard.date }}
+            </div>
           </div>
-          <div class="board_writing" style="width: 184px">
-            {{ eachBoard.host }}
+
+          <div @click="goWriting"
+               class="flex-all-center"
+               style="
+                    width: 149px;
+                    height: 50px;
+                    border-radius: 10px;
+                    background-color: #898989;
+                    color: #ffffff;
+                    margin-top: 21px;
+                  "
+          >
+            글쓰기
           </div>
-          <div class="board_writing" style="width: 204px">
-            {{ eachBoard.date }}
+        </div>
+
+        <!--        게시판 페이징처리-->
+        <div class="flex-all-center">
+          <!--페이징처리 위치는 게시판 하단 정중앙에 위치-->
+          <div style="display: flex; width: 288px; height: 35px">
+            <div class="flex-all-center" style="width: 33%">〈</div>
+            <div class="flex-all-center" style="width: 33%">1</div>
+            <div class="flex-all-center" style="width: 33%">〉</div>
           </div>
         </div>
       </div>
 
-      <!--게시판 페이징처리-->
-      <div class="flex-all-center"> <!--페이징처리 위치는 게시판 하단 정중앙에 위치-->
-        <div style="display: flex; width: 288px; height: 35px">
-          <div class="flex-all-center" style="width: 33%">〈</div>
-          <div class="flex-all-center" style="width: 33%">1</div>
-          <div class="flex-all-center" style="width: 33%">〉</div>
-        </div>
-      </div>
+
+
+
     </div>
 
     <!--footer-->
@@ -55,6 +93,7 @@ export default {
   name: "Community-notice",
   data() {
     return {
+      status : [true,false,false],
       itemBoard: [
         {
           brdNum: 1,
@@ -129,6 +168,32 @@ export default {
       ],
     };
   },
+  methods : {
+    goWriting() {
+      this.$router.push({path : "/writing"})
+    },
+    tapDog () {
+      console.log("tap1실행");
+      this.status = [true, false, false];
+      //this.status[1] = false;
+      //this.status[2] = false;
+    },
+    tapCat () {
+      console.log("tap2실행");
+      this.status = [false, true, false];
+      // this.status[0] = false; vue가 못알아 들음 윗줄처럼 변수 선언했던 패턴과 통일되게 알려줘야 함
+      // this.status[1] = true;
+      // this.status[2] = false;
+      console.log(this.status);
+    },
+    tapExtra () {
+      console.log("tap3실행");
+      this.status = [false, false, true];
+      // this.status[0] = false;
+      // this.status[1] = false;
+      // this.status[2] = true;
+    }
+  }
 };
 </script>
 
@@ -137,6 +202,15 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.main_img_text {
+  height: 69px;
+  text-align: center;
+  font: normal normal 800 60px/35px NanumGothic;
+  letter-spacing: -1.5px;
+  color: #FFFFFF;
+  opacity: 1;
 }
 
 .board_title {
@@ -150,6 +224,16 @@ export default {
   border-bottom: 1px solid #b7b7b7;
 }
 
+.active_tap {
+  color: #66CDCC;
+  border-bottom: 2px solid #66CDCC;
+}
+
+.passive_tap {
+  color: #D4D4D4;
+  border-bottom: 2px solid #D4D4D4;
+}
+
 .board_writing {
   display: flex;
   align-items: center;
@@ -158,5 +242,11 @@ export default {
   color: #111111;
   background-color: #f7f7f7;
   border-bottom: 1px solid #b7b7b7;
+}
+
+.board_tap {
+
+  font-size: 18px;
+  letter-spacing: 0.99px;
 }
 </style>

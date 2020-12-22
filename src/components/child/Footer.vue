@@ -7,11 +7,12 @@
         <p class="bottom_text" @click="goPolicy">이용약관</p>
       </div>
 
-      <div style="margin-top: 31px; width: 215px; height: 76px">
+      <div style="margin-top: 31px; width: 215px; height: 76px; display: flex; align-items: center">
         <img
           style="width: 100%; height: 100%"
           src="../../../static/image/logo_white.png"
         />
+
       </div>
 
       <p style="margin-top: 25px">

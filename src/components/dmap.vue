@@ -12,7 +12,7 @@ export default {
   data () {
     return {
       msg : "다음맵 테스트",
-      map : null
+      map : null,
     }
   },
   methods : {

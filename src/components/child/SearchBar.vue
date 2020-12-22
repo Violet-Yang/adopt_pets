@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex; min-width: 1200px; height: 50px; font-size: 18px;
-  <!--position: absolute; right: 2px">-->
+  <!--position: absolute; right: 2px">
     <div
       style="
         display: flex;
@@ -38,7 +38,6 @@
         min-width: 95px;
         height: 100%;
         margin-left: 8px;
-
         background-color: #66cdcc;
         color: #ffffff;
       "

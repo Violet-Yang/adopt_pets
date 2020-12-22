@@ -7,16 +7,22 @@ import FindInfo from "../components/FindInfo";
 import Join from "../components/Join";
 import Company from "../components/Company";
 import Policy from "../components/Policy";
-import Adopt1 from "../components/Adopt1";
-import Adopt2 from "../components/Adopt2";
+import HomeAdopt from "../components/HomeAdopt";
+import CenterAdopt from "../components/CenterAdopt";
 import Market from "../components/Market";
 import Community from "../components/Community-notice";
 import Writing from "../components/Community-write"
+import dmap from "../components/dmap";
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/map',
+      name: 'dmap',
+      component: dmap
+    },
     {
       path: '/',
       name: 'Main',
@@ -53,14 +59,14 @@ export default new Router({
       component: Policy
     },
     {
-      path: '/adopt1',
-      name: 'Adopt1',
-      component: Adopt1
+      path: '/homeAdopt',
+      name: 'HomeAdopt',
+      component: HomeAdopt
     },
     {
-      path: '/adopt2',
-      name: 'Adopt2',
-      component: Adopt2
+      path: '/centerAdopt',
+      name: 'CenterAdopt',
+      component: CenterAdopt
     },
     {
       path: '/market',

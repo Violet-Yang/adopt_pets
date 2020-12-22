@@ -1,5 +1,5 @@
 <template>
-  <div>
+
     <div
       style="
         width: 658px;
@@ -16,7 +16,7 @@
     >
       {{ btnText }}
     </div>
-  </div>
+
 </template>
 
 <script>

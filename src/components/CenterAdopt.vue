@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "Adopt2",
+  name: "CenterAdopt",
   data() {
     return {};
   },
