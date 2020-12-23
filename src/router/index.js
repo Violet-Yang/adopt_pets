@@ -13,7 +13,7 @@ import Market from "../components/Market";
 import Community from "../components/Community-notice";
 import Writing from "../components/Community-write"
 import dmap from "../components/dmap";
-
+import Detail from "../components/Detail";
 Vue.use(Router)
 
 export default new Router({
@@ -82,6 +82,11 @@ export default new Router({
       path: '/writing',
       name: 'Writing',
       component: Writing
+    },
+    {
+      path: '/detail',
+      name: 'Detail',
+      component: Detail
     },
 
   ]

@@ -8,6 +8,7 @@ import Footer from "./components/child/Footer";
 import CommBox from "./components/child/CommBox";
 import Button from "./components/child/Button";
 import SearchBar from "./components/child/SearchBar";
+import TapInImage from "./components/child/TapInImage";
 import axios from 'axios' // Axios 임포트
 
 Vue.config.productionTip = false
@@ -17,6 +18,7 @@ Vue.component('bottom', Footer)
 Vue.component('commDiv', CommBox)
 Vue.component('btnDivs', Button)
 Vue.component('schDiv', SearchBar)
+Vue.component('tapInImg',TapInImage)
 
 // 전역 configuration 설정
 //Base URL을 설정한다.

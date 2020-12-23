@@ -4,12 +4,11 @@
     <top :is-comm="true" />
     <img style="max-width: 1920px; position: relative" src="static/image/공지사항이미지.png" />
     <div style="position: absolute; top :191px; left: 821px;"  class="main_img_text">집사게시판</div>
-    <div style="position: absolute; left: 362px; display: flex; width: 1200px; height: 80px; background-color: #010000; opacity: 0.6">
-      <div>공지사항</div>
-      <div>집사게시판</div>
-    </div>
+
     <!--여분 div-->
     <div class="flex-all-center">
+      <!--tap 컴포넌트 주입-->
+      <tap-in-img :tap-cnt3="false"/>
       <div>
         <div style="display: flex;  margin-top: 103px">
           <div @click="tapDog()" style="width: 400px" class="board_tap" :class="{active_tap : status[0]===true, passive_tap : status[0]===false}">

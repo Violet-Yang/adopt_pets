@@ -1,6 +1,8 @@
 <template>
-  <div style="display: flex; min-width: 1200px; height: 50px; font-size: 18px;
-  <!--position: absolute; right: 2px">
+  <div style="display: flex;min-width: 1200px; height: 50px; font-size: 18px;
+  /*position: absolute; right: 2px*/
+">
+
     <div
       style="
         display: flex;
@@ -25,7 +27,7 @@
     >
       <input
         type="text"
-        style="width: calc(100% - 5px); height: calc(100%- 2px)"
+        style="width: calc(100% - 5px); height: calc(100% - 2px)"
         placeholder="내용을 입력해주세요"
       />
     </div>
@@ -39,7 +41,9 @@
         height: 100%;
         margin-left: 8px;
         background-color: #66cdcc;
+        border: 1px solid #66cdcc;
         color: #ffffff;
+        cursor: pointer;
       "
     >
       검색
@@ -66,4 +70,10 @@ input {
 input:focus {
   outline: none;
 }
+
+input::placeholder {
+  font-size: 18px;
+  color: #b7b7b7;
+}
+
 </style>

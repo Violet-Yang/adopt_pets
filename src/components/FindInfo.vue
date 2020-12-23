@@ -36,7 +36,7 @@
             <div
               @click="tapId()"
               :class="{
-                active_id: isNum, passive_id : !isNum
+                active_tap: isNum, passive_tap : !isNum
               }"
               style="width: 50%; display: flex; justify-content: center"
             >
@@ -44,7 +44,7 @@
             </div>
             <div
               @click="tapPwd()"
-              :class="{ active_pwd: !isNum, passive_pwd : isNum}"
+              :class="{ active_tap: !isNum, passive_tap : isNum}"
               style="width: 50%; display: flex; justify-content: center"
             >
               비밀번호찾기
@@ -82,7 +82,7 @@
             <div
               @click="tapId()"
               :class="{
-                active_id: isNum, passive_id : !isNum,
+                active_tap: isNum, passive_tap : !isNum,
               }"
               style="width: 50%; display: flex; justify-content: center"
             >
@@ -90,7 +90,7 @@
             </div>
             <div
               @click="tapPwd()"
-              :class="{ active_pwd: !isNum, passive_pwd : isNum}"
+              :class="{ active_tap: !isNum, passive_tap : isNum}"
               style="width: 50%; display: flex; justify-content: center"
             >
               비밀번호찾기
@@ -207,22 +207,13 @@ export default {
   margin: 5px;
 }
 
-.active_id {
+.active_tap {
   border-bottom: 3px solid #66cdcc;
   color: #66cdcc;
 }
-
-.active_pwd {
-  border-bottom: 3px solid #66cdcc;
-  color: #66cdcc;
-}
-
-.passive_id {
+.passive_tap {
   border-bottom: 3px solid #d4d4d4;
   color: #d4d4d4;
 }
-.passive_pwd {
-  border-bottom: 3px solid #d4d4d4;
-  color: #d4d4d4;
-}
+
 </style>
