@@ -5,39 +5,41 @@
     <img src="static/image/소품장터이미지.png" />
 
     <!--content : 소품장터 게시판-->
-    <div style="display: flex; justify-content: center">
-      <tapInImg :tap-cnt3="true" />
+    <div style="display: flex; justify-content: center;">
       <div>
-        <!--검색bar주입-->
-        <search-bar style="margin-top: 99px"/>
+        <tapInImg :tap-cnt3="true" />
+        <div>
+          <!--검색bar주입-->
+          <search-bar style="margin-top: 99px"/>
 
-        <div v-if="afterClck" style="margin-top: 27px; text-align: left">
-          <p>{{ afterClck }}</p>
-        </div>
-        <!--게시판 글만 flex처리하기-->
-        <div
-          style="
+          <div v-if="afterClck" style="margin-top: 27px; text-align: left">
+            <p>{{ afterClck }}</p>
+          </div>
+          <!--게시판 글만 flex처리하기-->
+          <div
+            style="
             margin-top: 30px;
             width: 1200px;
             text-align: left;
             margin-bottom: 67px;
           "
-        >
-          <!--왜 flex를 사용하면 자식 요소의 width가 변하는지,,-->
-          <!--3의 배수일 때 lastItem_div 클래스를 동적으로 실행하고 싶다-->
-          <div
-            :class="{
+          >
+            <!--왜 flex를 사용하면 자식 요소의 width가 변하는지,,-->
+            <!--3의 배수일 때 lastItem_div 클래스를 동적으로 실행하고 싶다-->
+            <div
+              :class="{
               item_div: item.length - 1 !== index,
               lastItem_div: item.length - 1 === index - 1,
             }"
-            v-for="(item, index) in goods"
-            style="display: inline-block; width: 380px; height: 471px"
-          >
-            <div style="width: 380px; height: 325px">
-              <img style="width: 100%; height: 100%" :src="item.img" />
-            </div>
-            <div
-              style="
+              v-for="(item, index) in goods"
+              style="display: inline-block; width: 380px; height: 471px"
+            >
+
+              <div style="width: 380px; height: 325px">
+                <img style="width: 100%; height: 100%" :src="item.img" />
+              </div>
+              <div
+                style="
                 display: flex;
                 align-items: center;
                 margin-top: 23px;
@@ -45,18 +47,18 @@
                 color: #999999;
                 letter-spacing: 0.88px;
               "
-            >
-              <div style="width: 38px; height: 38px; margin-right: 13px;">
-                <img
-                  style="width: 100%; height: 100%;"
-                  src="static/image/icon_circle_dog.png"
-                />
+              >
+                <div style="width: 38px; height: 38px; margin-right: 13px;">
+                  <img
+                    style="width: 100%; height: 100%;"
+                    src="static/image/icon_circle_dog.png"
+                  />
+                </div>
+                <span style="margin-right: 5px" >{{ item.id }}</span> | <span style="margin-left: 5px; margin-right: 5px">{{ item.addr }}</span> |
+                <span style="margin-left: 5px" >{{ item.data }}</span>
               </div>
-              <span style="margin-right: 5px" >{{ item.id }}</span> | <span style="margin-left: 5px; margin-right: 5px">{{ item.addr }}</span> |
-              <span style="margin-left: 5px" >{{ item.data }}</span>
-            </div>
-            <div
-              style="
+              <div
+                style="
                 margin-top: 25px;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
@@ -64,15 +66,18 @@
                 white-space: normal;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                height: 60px;
+
                 text-align: left;
               "
-            >
-              {{ item.title }}
+              >
+                {{ item.title }}
+              </div>
+
             </div>
           </div>
         </div>
       </div>
+
     </div>
     <!--footer-->
     <bottom />
@@ -102,7 +107,7 @@ export default {
           addr: "장발산동",
           data: "2020.11.29",
           title:
-            "강아지 하네스팝니다 (시착 한번밖에 안한 제품이에요 ㅠㅠ)사이즈 L",
+            "강아지 하네스팝니다 (시착 한번밖에 안한 제품이에요 ㅠㅠ)사이즈 Lasdfjlhsadlfhksladjflksajdlfkjsdlkfjlkasdjflkasjdlfkjasdlfjlsadkjflskajdflsajdflksajdlfjsaldkfjlksadjflsdajrlkfsd",
           img: "static/image/market3.png",
         },
         {
@@ -128,18 +133,14 @@ export default {
           title:
             "강아지 하네스팝니다 (시착 한번밖에 안한 제품이에요 ㅠㅠ)사이즈 L",
           img: "static/image/market3.png",
-        },
-        {
-          id: "eldmsdl13",
-          addr: "장발산동",
-          data: "2020.11.29",
-          title:
-            "강아지 하네스팝니다 (시착 한번밖에 안한 제품이에요 ㅠㅠ)사이즈 L",
-          img: "static/image/market1.png",
         },
       ],
     };
   },
+  created() {
+    console.log(this.goods[0].length);
+
+  }
 };
 </script>
 

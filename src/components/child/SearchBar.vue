@@ -1,10 +1,10 @@
 <template>
-  <div style="display: flex;min-width: 1200px; height: 50px; font-size: 18px;
+  <div style="display: flex; min-width: 1200px; height: 50px; font-size: 18px; justify-content: flex-end;
   /*position: absolute; right: 2px*/
 ">
-
-    <div
-      style="
+    <div style="display: flex">
+      <div
+        style="
         display: flex;
         align-items: center;
         justify-content: center;
@@ -13,27 +13,27 @@
         border: 1px solid #b7b7b7;
         color: #555555;
       "
-    >
-      제목
-    </div>
+      >
+        제목
+      </div>
 
-    <div
-      style="
+      <div
+        style="
         min-width: 255px;
         height: 100%;
         margin-left: 8px;
         border: 1px solid #b7b7b7;
       "
-    >
-      <input
-        type="text"
-        style="width: calc(100% - 5px); height: calc(100% - 2px)"
-        placeholder="내용을 입력해주세요"
-      />
-    </div>
+      >
+        <input
+          type="text"
+          style="width: calc(100% - 5px); height: calc(100% - 2px); padding-left: 15px;"
+          placeholder="내용을 입력해주세요"
+        />
+      </div>
 
-    <div
-      style="
+      <div
+        style="
         display: flex;
         align-items: center;
         justify-content: center;
@@ -45,8 +45,9 @@
         color: #ffffff;
         cursor: pointer;
       "
-    >
-      검색
+      >
+        검색
+      </div>
     </div>
   </div>
 </template>

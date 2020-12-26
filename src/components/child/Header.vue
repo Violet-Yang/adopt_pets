@@ -3,7 +3,9 @@
     :class="{
       wrap_top: currentScrollValue < 100,
       wrap_top_roll: currentScrollValue >= 100,
+      div_map : isMap
     }"
+
   >
     <div class="left">
       <img
@@ -76,7 +78,7 @@
 
 export default {
   name: "Header",
-  props: ['isAdopt1', 'isAdopt2', 'isMarket', 'isComm'],
+  props: ['isAdopt1', 'isAdopt2', 'isMarket', 'isComm','isMap'],
   data() {
     return {
       // navi_1: false, //props사용하여 하나의 데이터로 제어
@@ -125,8 +127,15 @@ export default {
 
   created() {
     let vue = this;
+    this.currentScrollValue = document.documentElement.scrollTop
+    // if (document.documentElement.scrollTop===0) {
+    //   this.currentScrollValue = 0;
+    // }else {
+    //   this.currentScrollValue = 100;
+    // } 빵꾸 로직.....
+
     document.addEventListener("scroll", function () {
-      vue.currentScrollValue = document.documentElement.scrollTop;
+      vue.currentScrollValue = document.documentElement.scrollTop; //document는 html, scrollTop은top으로부터 scroll된 값을 의미한다.
       console.log("currentScrollValue is " + vue.currentScrollValue);
     });
   },
@@ -146,8 +155,9 @@ export default {
   /*background: rgba(0, 0, 0, 1);*/
 }
 
-.cursor {
-
+.div_map {
+  background-color: white !important;
+  /*position: ;*/
 }
 
 .wrap_top_roll {

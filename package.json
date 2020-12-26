@@ -7,14 +7,16 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "prod-deploy": "npm run build && firebase target:apply hosting prod dangdang-37060 && firebase deploy --only hosting:prod"
   },
   "dependencies": {
     "axios": "^0.21.0",
     "prettier": "^2.2.1",
     "tiptap": "^1.30.0",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue2-editor": "^2.10.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -45,7 +47,7 @@
     "shelljs": "^0.7.6",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
-    "vue-loader": "^13.3.0",
+    "vue-loader": "^14.2.4",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",
