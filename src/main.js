@@ -10,7 +10,7 @@ import Button from "./components/child/Button";
 import SearchBar from "./components/child/SearchBar";
 import TapInImage from "./components/child/TapInImage";
 import Filter from "./components/child/Filter";
-
+import MyPageBox from "./components/child/MyPageBox";
 import axios from 'axios' // Axios 임포트
 
 Vue.config.productionTip = false
@@ -22,6 +22,7 @@ Vue.component('btnDivs', Button)
 Vue.component('schDiv', SearchBar)
 Vue.component('tapInImg',TapInImage)
 Vue.component('filterDiv', Filter)
+Vue.component('myPageDiv', MyPageBox)
 // 전역 configuration 설정
 //Base URL을 설정한다.
 axios.defaults.baseURL = 'https://limy1118.cafe24.com'

@@ -8,12 +8,16 @@
 <script>
 export default {
   name: "CommBox",
-  props : ["placeText"],
+  props : ["placeText", "id", "pw"],
   data () {
     return {
       text : ""
     }
+  },
+  methods : {
+
   }
+
 }
 </script>
 

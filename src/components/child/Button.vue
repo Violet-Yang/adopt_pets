@@ -1,6 +1,8 @@
 <template>
 
     <div
+      @click="sendInfo()"
+
       style="
         width: 658px;
         height: 70px;
@@ -24,9 +26,20 @@ export default {
   name: "Title",
   props: ["btnText"],
   data() {
-    return {};
+    return {
+
+
+    };
   },
+  methods : {
+    sendInfo () {
+
+    }
+  }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+
+</style>

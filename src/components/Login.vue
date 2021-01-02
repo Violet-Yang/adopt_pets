@@ -22,7 +22,9 @@
           입양해듀오에 오신것을 환영합니다.<br> 아직 회원이 아니신분들은 간단
           회원가입으로 입양해듀오의 가족이 되어보세요.
         </p>
-        <commDiv :placeholder="'가입 시 사용한 아이디'"/>
+<!--        <commDiv :id="id" :pw="pw" :placeholder="'가입 시 사용한 아이디'"/>-->
+        <input :bind="loginId" type="text">
+        <input :bind="loginPwd" type="password">
         <div class="flex-mid" style="width: 658px;">
           <div style="display: flex"><div style="width: 20px; height: 20px"><input type="checkbox"></div> <span>아이디 저장</span></div>
           <div style="display: flex;">
@@ -30,8 +32,8 @@
             <p @click="goFindInfo(info.findPwd)">비밀번호 찾기</p>
           </div>
         </div>
-
-        <btnDivs style="margin-top: 25px; margin-bottom: 107px" :btn-text="'로그인하기'" />
+<div @click="sendInfo()">로그인 하기</div>
+        <btnDivs @click="sendInfo(loginId, loginPwd)" style="margin-top: 25px; margin-bottom: 107px" :btn-text="'로그인하기'" />
       </div>
     </div>
 
@@ -40,15 +42,58 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Login",
   data () {
     return {
-      info : {findId : 1, findPwd : 2}
+      data : { id: "admin",pw :"1233" },
+      loginId : "",
+      loginPwd : "",
+
 
     }
   },
   methods : {
+
+    created () {
+
+    },
+    sendInfo () {
+      console.log("로그인ㅇ하기1111");
+      // this.data = { userId: "admin",userPw :"1233" };
+      // axios.post("/adoptDuo/login_post", this.data)
+      //   .then(response =>  this.data);
+      //     console.log('1111111');
+      //     console.log(this.data);
+
+      axios.post('/adoptDuo/login_post', {
+        userId: "admin",
+        userPw: "1234"
+      })
+        .then(function (response) {
+          console.log('1111111');
+          console.log(response);
+
+         })
+
+
+      //
+      // axios.get('/adoptDuo/login_get', {
+      //   params: {
+      //     id: "admin",
+      //     pw : "1234"
+      //   }
+      // })
+      //   .then(function (response) {
+      //     console.log(response);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
+
+    },
+
     goFindInfo(info) {
       this.$router.push({path: '/findInfo', query: {id : info}})
     }

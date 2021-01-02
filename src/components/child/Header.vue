@@ -51,11 +51,11 @@
     <div class="right">
       <div style="display: flex; margin-left: 188px">
         <div class="menu_img" @click="goLogin">
-          <img src="../../../static/image/로그인.png" />
+          <img src="../../../static/image/icon_login.png" />
           <p class="menu_text" style="min-width: 50px">로그인</p>
         </div>
         <div class="menu_img" @click="goMyPage">
-          <img src="../../../static/image/마이페이지.png" />
+          <img src="../../../static/image/icon_myPage.png" />
           <p class="menu_text" style="min-width: 60px">마이페이지</p>
         </div>
       </div>
@@ -121,7 +121,7 @@ export default {
     },
     //마이페이지
     goMyPage() {
-      this.$router.push({ path: "/myPage/" + id });
+      this.$router.push({ path: "/myPurchase/"});
     },
   },
 

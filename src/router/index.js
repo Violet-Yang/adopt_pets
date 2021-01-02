@@ -14,6 +14,10 @@ import Community from "../components/Community-notice";
 import Writing from "../components/Community-write"
 import dmap from "../components/dmap";
 import Detail from "../components/Detail";
+import MyPurchase from "../components/myPage/buy/myPurchase";
+import myFavorite from "../components/myPage/favorite/myFavorite";
+import mySelling from "../components/myPage/sell/mySelling";
+
 Vue.use(Router)
 
 export default new Router({
@@ -33,11 +37,7 @@ export default new Router({
       name: 'Login',
       component: Login
     },
-    {
-      path: '/myPage',
-      name: 'Mypage',
-      component: Mypage
-    },
+
     {
       path: '/findInfo',
       name: 'FindInfo',
@@ -88,6 +88,20 @@ export default new Router({
       name: 'Detail',
       component: Detail
     },
-
+    {
+      path: '/myPurchase',
+      name: 'MyPurchase',
+      component: MyPurchase
+    },
+    {
+      path: '/mySelling',
+      name: 'MySelling',
+      component: mySelling
+    },
+    {
+      path: '/myFavorite',
+      name: 'MyFavorite',
+      component: myFavorite
+    },
   ]
 })
