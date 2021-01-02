@@ -61,20 +61,13 @@ export default {
     },
     sendInfo () {
       console.log("로그인ㅇ하기1111");
-      // this.data = { userId: "admin",userPw :"1233" };
-      // axios.post("/adoptDuo/login_post", this.data)
-      //   .then(response =>  this.data);
-      //     console.log('1111111');
-      //     console.log(this.data);
-
-      axios.post('/adoptDuo/login_post', {
-        userId: "admin",
-        userPw: "1234"
-      })
+      let formData = new FormData();
+      formData.append('userId', 'admin');
+      formData.append('userPw', 'ddddd');
+      axios.post('/adoptDuo/login_post',formData)
         .then(function (response) {
           console.log('1111111');
           console.log(response);
-
          })
 
 

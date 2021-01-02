@@ -45,7 +45,7 @@
           >
             <div class="flex-all-center" style="width: 88px; height: 70px">
               <div style="width: 22px; height: 22px">
-                <input type="checkbox" />
+                <input @click="checkAll()" type="checkbox" />
               </div>
             </div>
             <div class="flex-all-center" style="width: 1110px; height: 70px">
@@ -62,19 +62,26 @@
             "
           >
             <div class="flex-all-center" style="width: 88px; height: 100%">
-              <input type="checkbox" />
+              <input v-model="items.checked" type="checkbox" />
             </div>
             <div style="width: 906px; display: flex; align-items: center">
               <div
-                 :class="{passive_dim : items.status, active_dim : !items.status}"
-                class="flex-all-center" style="position: relative; width: 150px; height: 128px">
+                :class="{
+                  passive_dim: items.status,
+                  active_dim: !items.status,
+                }"
+                class="flex-all-center"
+                style="position: relative; width: 150px; height: 128px"
+              >
                 <img
-
-                  :src="items.img" style="z-index: 2; width: 150px; height: 128px" />
-                <span v-if="!items.status"
+                  :src="items.img"
+                  style="z-index: 2; width: 150px; height: 128px"
+                />
+                <span
+                  v-if="!items.status"
                   style="
-                  position: absolute;
-                  z-index: 3;
+                    position: absolute;
+                    z-index: 3;
                     width: 101px;
                     height: 16px;
                     background-color: #0a1103;
@@ -155,7 +162,23 @@
               </div>
             </div>
           </div>
+          <div @click="delAllData()"
+            class="flex-all-center"
+            style="
+              margin-top: 27px;
+              width: 150px;
+              height: 51px;
+              color: #66cdcc;
+              font-size: 18px;
+              border: 3px solid #66cdcc;
+              border-radius: 10px;
+              cursor: pointer;
+            "
+          >
+            선택삭제
+          </div>
         </div>
+        <!--찜목록 게시판 끝-->
       </div>
     </div>
     <!--footer-->
@@ -169,6 +192,7 @@ export default {
   data() {
     return {
       id: "abcd1234",
+      newArray : [], //선택삭제 버튼 눌렀을 때 filter함수의 리턴값
       contents: [
         {
           num: 1,
@@ -179,7 +203,7 @@ export default {
           date: "2020.12.31",
           addr: "마두동",
           status: true,
-          info: true,
+          checked: true,
         },
         {
           num: 2,
@@ -190,7 +214,7 @@ export default {
           date: "2020.12.25",
           addr: "백산동",
           status: false,
-          info: true,
+          checked: true,
         },
       ],
     };
@@ -204,9 +228,20 @@ export default {
         item.status = "거래완료";
       });
     },
+    delAllData(){ //선택삭제 버튼 눌렀을 때
+      console.log("선택삭제")
+      this.contents.forEach(data=> {
+      })
+
+    }
+
   },
   watch: {
-    s2howStatus() {},
+    checkAll() {
+      this.contents.forEach((data) => {
+        data.checked = true;
+      });
+    },
   },
 };
 </script>
@@ -228,7 +263,7 @@ input[type="checkbox"] {
   border: 0;
 }
 
-.active_dim{
+.active_dim {
   /*background-color: rgba(166,166,166,0.5);*/
   opacity: 50%;
   z-index: 1;
