@@ -20,6 +20,7 @@
           <p style="color: #66CDCC; font-size: 35px;">{{memberId}}</p>
           <p style="font-size: 35px; letter-spacing: 1.93px">님 환영합니다!</p>
           <div
+            @click="goEdit()"
             class="flex-all-center"
             style="
               margin-left: 15px;
@@ -28,6 +29,7 @@
               color: #ffffff;
               background-color: #888888;
               border-radius: 15px;
+              cursor: pointer;
             "
           >
             정보수정
@@ -100,6 +102,9 @@ export default {
     },
     goMyFavorite(){  // 내 찜목록
       this.$router.push({path : "/myFavorite"})
+    },
+    goEdit(){ //정보 수정
+      this.$router.push({path: "/editInfo"})
     }
   }
 };

@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Main from "../components/Main";
 import Login from "../components/Login";
-import Mypage from "../components/Mypage";
 import FindInfo from "../components/FindInfo";
 import Join from "../components/Join";
 import Company from "../components/Company";
@@ -17,6 +16,7 @@ import Detail from "../components/Detail";
 import MyPurchase from "../components/myPage/buy/myPurchase";
 import myFavorite from "../components/myPage/favorite/myFavorite";
 import mySelling from "../components/myPage/sell/mySelling";
+import Edit from "../components/myPage/info/Edit";
 
 Vue.use(Router)
 
@@ -102,6 +102,11 @@ export default new Router({
       path: '/myFavorite',
       name: 'MyFavorite',
       component: myFavorite
+    },
+    {
+      path: '/editInfo',
+      name: 'Edit',
+      component: Edit
     },
   ]
 })

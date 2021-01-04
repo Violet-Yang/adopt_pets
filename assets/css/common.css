@@ -1,3 +1,42 @@
 .quillWrapper .ql-snow.ql-toolbar {
   padding-top: 200px !important;
 }
+/*input창 css 커스터마이징*/
+input[type="text"],
+input[type="password"] {
+  width: calc(96% - 1px);
+  height: calc(100% - 5px);
+  font-family: inherit;
+  webkit-appearance: none;
+  moz-appearance: none;
+  appearance: none;
+  border: none;
+  margin-left: 10px;
+}
+/*input창 클릭 시, css 커스터마이징*/
+input:focus {
+  outline: none;
+}
+
+/* flex 가로 center; 세로 center */
+.flex-all-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* flex 가로 center; */
+.flex-all-center {
+  display: flex;
+  justify-content: center;
+}
+/* flex 세로 center; */
+.flex-all-center {
+  display: flex;
+  align-items: center;
+}
+/* flex 가로 between; */
+.flex-all-center {
+  display: flex;
+  justify-content: space-between;
+}
+

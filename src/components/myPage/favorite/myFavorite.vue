@@ -29,7 +29,7 @@
           >
             찜목록
           </p>
-        </div>
+          </div>
         <!--  찜목록 테이블-->
         <div style="margin-top: 42px; margin-bottom: 100px; width: 1200px">
           <div

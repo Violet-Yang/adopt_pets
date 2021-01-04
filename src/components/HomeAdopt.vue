@@ -70,7 +70,7 @@ export default {
 .style_filter {
   width: 140px;
   height: 45px;
-  border: 1px solid #B7B7B7;
+  border: 1px solid #B7B7B7;.
   border-radius: 8px;
 }
 

@@ -10,7 +10,7 @@
     <div class="left">
       <img
         @click="goMain()"
-        style="width: 50%; margin-left: 34px"
+        style="width: 50%; margin-left: 34px; cursor: pointer"
         src="../../../static/image/logo.png"
       />
     </div>
@@ -49,14 +49,14 @@
       </div>
     </div>
     <div class="right">
-      <div style="display: flex; margin-left: 188px">
+      <div style="display: flex; margin-left: 188px; cursor:pointer;">
         <div class="menu_img" @click="goLogin">
           <img src="../../../static/image/icon_login.png" />
-          <p class="menu_text" style="min-width: 50px">로그인</p>
+          <p class="menu_text" style="min-width: 50px;">로그인</p>
         </div>
-        <div class="menu_img" @click="goMyPage">
+        <div class="menu_img" style="cursor: pointer" @click="goMyPage">
           <img src="../../../static/image/icon_myPage.png" />
-          <p class="menu_text" style="min-width: 60px">마이페이지</p>
+          <p class="menu_text" style="min-width: 60px; ">마이페이지</p>
         </div>
       </div>
     </div>
