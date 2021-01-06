@@ -136,7 +136,7 @@ export default {
 
     document.addEventListener("scroll", function () {
       vue.currentScrollValue = document.documentElement.scrollTop; //document는 html, scrollTop은top으로부터 scroll된 값을 의미한다.
-      console.log("currentScrollValue is " + vue.currentScrollValue);
+      // console.log("currentScrollValue is " + vue.currentScrollValue);
     });
   },
 };

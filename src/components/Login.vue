@@ -28,8 +28,8 @@
         <div class="flex-mid" style="width: 658px;">
           <div style="display: flex"><div style="width: 20px; height: 20px"><input type="checkbox"></div> <span>아이디 저장</span></div>
           <div style="display: flex;">
-            <p @click="goFindInfo(info.findId)">아이디 찾기</p>
-            <p @click="goFindInfo(info.findPwd)">비밀번호 찾기</p>
+            <p @click="goFindInfo()">아이디 찾기</p>
+            <p @click="goFindInfo()">비밀번호 찾기</p>
           </div>
         </div>
 <div @click="sendInfo()">로그인 하기</div>

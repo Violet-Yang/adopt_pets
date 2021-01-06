@@ -1,7 +1,5 @@
 <template>
-  <div style="width: 100%; height: 100%"
-       :class="{active_dim : daumPost, passive_dim : !daumPost}"
-  >
+  <div>
     <!--팝업 전체 감싸는 부분-->
     <div
       style="
@@ -35,9 +33,9 @@
         "
       >
         <div>
-          <button>취소</button>
+          <button @click="closeDaumPost()">x</button>
         </div>
-        <vue-daum-postcode style="width: 700px; height: 500px"/>
+        <vue-daum-postcode @search="result = $event" style="width: 700px; height: 500px"/>
       </div>
     </div>
     <top />
@@ -131,7 +129,7 @@
         <!--주소-->
         <div style="display: flex; height: 100%">
           <div class="inputBox">
-            <input type="text" :placeholder="'주소'"/>
+            <input type="text" :placeholder="'주소'" v-model="this.result.q"/>
           </div>
           <div
             @click="searchDaumPost()"
@@ -152,7 +150,7 @@
           </div>
         </div>
         <div class="inputBox">
-          <input type="text" :placeholder="'상세주소'"/>
+          <input type="text" :placeholder="'상세주소'" v-model="info.detailAddr"/>
         </div>
 
         <!--btn 수정 -->
@@ -262,6 +260,7 @@ export default {
   data (){
     return {
       daumPost : false,
+      result : [],
       info: {
         name: "김멍멍",
         birth: "1991.12.01",
@@ -298,7 +297,7 @@ export default {
       formData.append('userPw2',this.info.memberPw2); //비번확인
       formData.append('userPhn',this.info.phone); //전화번호
       formData.append('userEmail',this.info.email); //이메일
-      formData.append('userAddr',this.info.addr); //주소
+      formData.append('userAddr',this.result.q); //주소
       formData.append('detailAddr',this.info.detailAddr); //상세주소
       axios.post('', formData)
       .then(function (response){
@@ -318,6 +317,10 @@ export default {
     //주소검색 버튼 클릭
     searchDaumPost(){
       this.daumPost = true;
+    },
+    //주소검색 닫기
+    closeDaumPost(){
+      this.daumPost = false;
     }
   }
 };

@@ -45,7 +45,8 @@
           >
             <div class="flex-all-center" style="width: 88px; height: 70px">
               <div style="width: 22px; height: 22px">
-                <input @click="checkAll()" type="checkbox" />
+                <!--화면 내 전체선택 버튼-->
+                <input @change="checkAll()" type="checkbox" v-model="checkedAll"/>
               </div>
             </div>
             <div class="flex-all-center" style="width: 1110px; height: 70px">
@@ -162,7 +163,7 @@
               </div>
             </div>
           </div>
-          <div @click="delAllData()"
+          <div @click="deleteSelectedList()"
             class="flex-all-center"
             style="
               margin-top: 27px;
@@ -192,7 +193,9 @@ export default {
   data() {
     return {
       id: "abcd1234",
-      newArray : [], //선택삭제 버튼 눌렀을 때 filter함수의 리턴값
+      checkedAll : false,
+      newContents : [//선택삭제 버튼 눌렀을 때 filter함수의 리턴값
+      ],
       contents: [
         {
           num: 1,
@@ -203,7 +206,7 @@ export default {
           date: "2020.12.31",
           addr: "마두동",
           status: true,
-          checked: true,
+          checked: false,
         },
         {
           num: 2,
@@ -228,21 +231,44 @@ export default {
         item.status = "거래완료";
       });
     },
-    delAllData(){ //선택삭제 버튼 눌렀을 때
-      console.log("선택삭제")
-      this.contents.forEach(data=> {
-      })
 
-    }
-
-  },
-  watch: {
-    checkAll() {
-      this.contents.forEach((data) => {
-        data.checked = true;
-      });
+    deleteSelectedList(){ //선택삭제 버튼 함수
+      console.log("선택삭제하기")
+      let vue = this;
+      this.contents =  this.contents.filter(item=> !item.checked)
+      console.log("this.contents의 값:" +this.contents);
     },
+    checkAll() { //찜목록 전체선택 클릭 함수
+      let vue = this;
+      this.contents.forEach((data)=> {
+        data.checked = vue.checkedAll;
+      })
+      // if(this.checkedAll){ checkedAll값이 이미 true아니면 false이기 때문에 조건이 필요없음
+      //   this.contents.forEach((data)=> {
+      //     data.checked = true;
+      //   })
+      // }else {
+      //   this.contents.forEach((data)=> {
+      //     data.checked = false;
+      //   })
+      // }
+    },
+
   },
+  // computed : {
+  //   checkBoxAll(){
+  //     return this.checkedAll;
+  //   },
+  //
+  //   // selectAll : function () {
+  //   //   console.log("전체선택하기")
+  //   //   this.contents.forEach((data)=> {
+  //   //     data.checked = true;
+  //   //
+  //   //   })
+  //   //   // return this.contents.checked
+  //   // }
+  // }
 };
 </script>
 
