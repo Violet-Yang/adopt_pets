@@ -170,6 +170,7 @@
         </div>
         <!--btn 돌아가기 -->
         <div
+          @click="backInitialInfo()"
           class="flex-all-center"
           style="
             margin-top: 10px;
@@ -307,7 +308,13 @@ export default {
     },
     //돌아가기 버튼 클릭
     backInitialInfo(){
-
+      //api통신에서 받아온 데이터를 바인딩시킨 변수에 할당해준다
+      //created주기에서 사용했던 로직 재활용
+      //axios.get('dddddd',response)
+    //.then(function (response){
+        console.log(response);
+    //  })
+      //this.info.name = response.userName;
     },
 
     //탈퇴하기 버튼 클릭

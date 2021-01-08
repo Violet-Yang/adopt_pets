@@ -39,26 +39,37 @@
       >
         <div>
           <!--          판매자정보-->
-          <div style="display: flex">
+          <div
+            @click="popUpInfo()"
+            style="
+              position: absolute;
+              top: 34px;
+              right: 30px;
+              width: 26px;
+              height: 26px;
+              cursor: pointer;
+            "
+          >
+            X
+          </div>
+          <div style="display: flex; align-items: center; margin-top: 85px">
             <div style="width: 18px; height: 18px">
               <img
                 style="width: 100%; height: 100%"
                 src="static/image/barbadakClor.png"
               />
             </div>
-            <div
-              style="
-                margin-left: 2.5px;
-                font-size: 25px;
-                letter-spacing: 1.38px;
-                color: #68c9c9;
-              "
-            >
-              판매자 정보
-            </div>
+            <div class="popUp_board_name">판매자 정보</div>
           </div>
-          <div style="width: 1090px; border-top: 3px solid #66cdcc">
+          <div
+            style="
+              margin-top: 34px;
+              width: 1090px;
+              border-top: 3px solid #66cdcc;
+            "
+          >
             <div
+              class="flex-all-center"
               style="
                 display: flex;
                 width: 100%;
@@ -66,28 +77,91 @@
                 border-bottom: 1px solid #d7d7d7;
               "
             >
-              <div style="width: 200px">판매자아이디</div>
+              <div class="flex-all-center popUp_title">판매자아이디</div>
               <div style="width: 347px">{{ business.seller }}</div>
+              <div class="flex-all-center popUp_title">판매자 이름</div>
+              <div style="width: 345px">{{ business.buyerName }}</div>
             </div>
           </div>
-          <!--          구매자정보-->
-          <div style="display: flex">
+          <div
+            class="flex-all-center"
+            style="
+              display: flex;
+              width: 100%;
+              height: 60px;
+              border-bottom: 1px solid #d7d7d7;
+            "
+          >
+            <div class="flex-all-center popUp_title">판매자 전화번호</div>
+            <div style="width: 347px">{{ business.sellerPhone }}</div>
+            <div class="flex-all-center popUp_title">판매자 이메일</div>
+            <div style="width: 345px">{{ business.sellerEmail }}</div>
+          </div>
+
+          <div style="display: flex; align-items: center; margin-top: 93px">
             <div style="width: 18px; height: 18px">
               <img
                 style="width: 100%; height: 100%"
                 src="static/image/barbadakClor.png"
               />
             </div>
+            <div class="popUp_board_name">구매자 정보</div>
+          </div>
+          <div
+            style="
+              margin-top: 34px;
+              width: 1090px;
+              border-top: 3px solid #66cdcc;
+            "
+          >
+            <!--          구매자정보-->
             <div
+              class="flex-all-center"
               style="
-                font-size: 25px;
-                text-align: left;
-                letter-spacing: 1.38px;
-                color: #68c9c9;
+                display: flex;
+                width: 100%;
+                height: 60px;
+                border-bottom: 1px solid #d7d7d7;
               "
             >
-              구매자 정보
+              <div class="flex-all-center popUp_title">구매자 아이디</div>
+              <div style="width: 347px">{{ business.buyer }}</div>
+              <div class="flex-all-center popUp_title">구매자 이름</div>
+              <div style="width: 345px">{{ business.buyerName }}</div>
             </div>
+            <div
+              class="flex-all-center"
+              style="
+                display: flex;
+                width: 100%;
+                height: 60px;
+                border-bottom: 1px solid #d7d7d7;
+              "
+            >
+              <div class="flex-all-center popUp_title">구매자 전화번호</div>
+              <div style="width: 347px">{{ business.buyerPhone }}</div>
+              <div class="flex-all-center popUp_title">구매자 이메일</div>
+              <div style="width: 345px">{{ business.buyerEmail }}</div>
+            </div>
+          </div>
+
+          <div
+            style="
+              margin-top: 65px;
+              font-size: 18px;
+              text-align: left;
+              letter-spacing: 1.1px;
+              color: #959191;
+            "
+          >
+            - 판매자와 구매자는 반드시 거래가 종료되면 거래완료를 눌러주세요.
+            <br />
+            &emsp;(거래완료를 안누르면 미거래로 인식, 일주일 후 글이 자동삭제
+            됩니다.)
+            <br />
+            - 거래에 관해 입양해듀오는 장소를 제공할뿐 거래건에 대해선 책임지지
+            않습니다. <br />
+            - 자세한 사항은 입양해듀오 분양 필독사항에서 확인 부탁드립니다.
           </div>
         </div>
       </div>
@@ -105,132 +179,177 @@
       :my-favorite="'찜목록'"
       :member-id="id"
     />
+
     <!--나의 판매 contents 시작-->
-    <div style="display: flex; justify-content: center; margin-top: 97px">
-      <div style="width: 1200px">
-        <!--title : my구매-->
-        <div style="display: flex">
-          <div class="flex-all-center" style="width: 25px; height: 35px">
-            <img
-              style="width: 100%"
-              src="../../../../static/image/barbadakClor.png"
-            />
-          </div>
-          <p
-            style="
-              margin-left: 15px;
-              font-size: 25px;
-              letter-spacing: 1.38px;
-              color: #68c9c9;
-            "
-          >
-            MY 구매
-          </p>
-        </div>
-        <!--  my구매목록 테이블-->
+    <div style="display: flex; justify-content: center; margin-top: 70px">
+      <div>
+        <!--검색조건 Div-->
         <div
           style="
-            margin-top: 42px;
-            margin-bottom: 100px;
+            display: flex;
             width: 1200px;
-            height: 280px;
+            height: 200px;
+            border-top: 3px solid #66cdcc;
+            border-bottom: 3px solid #66cdcc;
           "
         >
-          <div
-            style="
-              display: flex;
-              background-color: #f7f7f7;
-              border-top: 3px solid #66cdcc;
-              font-size: 18px;
-              color: #111111;
-              font-weight: bold;
-            "
-          >
-            <div class="flex-all-center" style="width: 81px; height: 70px">
-              번호
+          <div>
+            <div
+              style="display: flex; width: 995px; height: 100px; border-bottom: 1px solid #D4D4D4"
+            >
+              <div class="flex-all-center srchDiv_ttile">기간검색</div>
+              <div style="display: flex; margin: 27px 17px 23px 27px" >
+                <div class="flex-all-center term">
+                  1주일
+                </div>
+                <div class="flex-all-center term">
+                  1개월
+                </div>
+                <div class="flex-all-center term">
+                  3개월
+                </div>
+                <div class="flex-all-center term">
+                  6개월
+                </div>
+              </div>
             </div>
-            <div class="flex-all-center" style="width: 122px; height: 70px">
-              카테고리
-            </div>
-            <div class="flex-all-center" style="width: 410px; height: 70px">
-              제목
-            </div>
-            <div class="flex-all-center" style="width: 137px; height: 70px">
-              판매자
-            </div>
-            <div class="flex-all-center" style="width: 145px; height: 70px">
-              구매일
-            </div>
-            <div class="flex-all-center" style="width: 163px; height: 70px">
-              구매상태
-            </div>
-            <div class="flex-all-center" style="width: 142px; height: 70px">
-              정보
-            </div>
+            <div
+              style="width: 995px; height: 100px;"
+            ></div>
           </div>
-
           <div
-            v-for="item in contents"
             style="
-              display: flex;
-              border-top: 2px solid #b7b7b7;
-              font-size: 18px;
-              letter-spacing: 0.99px;
-              color: #111111;
+              width: 205px;
+              height: 200px;
+            "
+          ></div>
+        </div>
+
+        <div style="width: 1200px; margin-top: 79px">
+          <!--title : my구매-->
+          <div style="display: flex">
+            <div class="flex-all-center" style="width: 25px; height: 35px">
+              <img
+                style="width: 100%"
+                src="../../../../static/image/barbadakClor.png"
+              />
+            </div>
+            <p
+              style="
+                margin-left: 15px;
+                font-size: 25px;
+                letter-spacing: 1.38px;
+                color: #68c9c9;
+              "
+            >
+              MY 구매
+            </p>
+          </div>
+          <!--  my구매목록 테이블-->
+          <div
+            style="
+              margin-top: 42px;
+              margin-bottom: 100px;
+              width: 1200px;
+              height: 280px;
             "
           >
-            <div class="flex-all-center" style="width: 81px; height: 70px">
-              {{ item.num }}
-            </div>
-            <div class="flex-all-center" style="width: 122px; height: 70px">
-              {{ item.category }}
-            </div>
-            <div class="flex-all-center" style="width: 410px; height: 70px">
-              {{ item.title }}
-            </div>
-            <div class="flex-all-center" style="width: 137px; height: 70px">
-              {{ item.seller }}
-            </div>
-            <div class="flex-all-center" style="width: 145px; height: 70px">
-              {{ item.date }}
-            </div>
             <div
-              v-if="item.status === 'waiting'"
-              class="flex-all-center"
-              style="width: 163px; height: 70px"
+              style="
+                display: flex;
+                background-color: #f7f7f7;
+                border-top: 3px solid #66cdcc;
+                font-size: 18px;
+                color: #111111;
+                font-weight: bold;
+              "
             >
-              대기중
+              <div class="flex-all-center" style="width: 81px; height: 70px">
+                번호
+              </div>
+              <div class="flex-all-center" style="width: 122px; height: 70px">
+                카테고리
+              </div>
+              <div class="flex-all-center" style="width: 410px; height: 70px">
+                제목
+              </div>
+              <div class="flex-all-center" style="width: 137px; height: 70px">
+                판매자
+              </div>
+              <div class="flex-all-center" style="width: 145px; height: 70px">
+                구매일
+              </div>
+              <div class="flex-all-center" style="width: 163px; height: 70px">
+                구매상태
+              </div>
+              <div class="flex-all-center" style="width: 142px; height: 70px">
+                정보
+              </div>
             </div>
+
             <div
-              v-if="item.status === 'complete'"
-              class="flex-all-center"
-              style="width: 163px; height: 70px; color: #df3333"
+              v-for="item in contents"
+              style="
+                display: flex;
+                border-top: 2px solid #b7b7b7;
+                font-size: 18px;
+                letter-spacing: 0.99px;
+                color: #111111;
+              "
             >
-              거래완료
-            </div>
-            <div
-              v-if="item.status === 'asking'"
-              class="flex-all-center"
-              style="width: 163px; height: 70px; color: #66cdcc"
-            >
-              거래중
-            </div>
-            <div class="flex-all-center" style="width: 142px; height: 70px">
-              <p
-                @click="showInformation()"
+              <div class="flex-all-center" style="width: 81px; height: 70px">
+                {{ item.num }}
+              </div>
+              <div class="flex-all-center" style="width: 122px; height: 70px">
+                {{ item.category }}
+              </div>
+              <div class="flex-all-center" style="width: 410px; height: 70px">
+                {{ item.title }}
+              </div>
+              <div class="flex-all-center" style="width: 137px; height: 70px">
+                {{ item.seller }}
+              </div>
+              <div class="flex-all-center" style="width: 145px; height: 70px">
+                {{ item.date }}
+              </div>
+              <div
+                v-if="item.status === 'waiting'"
                 class="flex-all-center"
-                :class="{ info_active: item.info, info_passive: !item.info }"
-                style="
-                  width: 121px;
-                  height: 45px;
-                  color: white;
-                  font-size: 16px;
-                  border-radius: 10px;
-                  cursor: pointer;
-                "
+                style="width: 163px; height: 70px"
               >
-                판매자정보
-              </p>
+                대기중
+              </div>
+              <div
+                v-if="item.status === 'complete'"
+                class="flex-all-center"
+                style="width: 163px; height: 70px; color: #df3333"
+              >
+                거래완료
+              </div>
+              <div
+                v-if="item.status === 'asking'"
+                class="flex-all-center"
+                style="width: 163px; height: 70px; color: #66cdcc"
+              >
+                거래중
+              </div>
+              <div class="flex-all-center" style="width: 142px; height: 70px">
+                <p
+                  @click="popUpInfo()"
+                  class="flex-all-center"
+                  :class="{ info_active: item.info, info_passive: !item.info }"
+                  style="
+                    width: 121px;
+                    height: 45px;
+                    color: white;
+                    font-size: 16px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                  "
+                >
+                  판매자정보
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -298,8 +417,9 @@ export default {
         item.status = "거래완료";
       });
     },
-    showInformation() {
-      this.business.status = true;
+    popUpInfo() {
+      //판매자정보보기
+      this.business.status = !this.business.status;
     },
   },
   watch: {
@@ -309,16 +429,45 @@ export default {
 </script>
 
 <style scoped>
-.flex-all-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.popUp_board_name {
+  margin-left: 2.5px;
+  font-size: 25px;
+  text-align: left;
+  letter-spacing: 1.38px;
+  color: #68c9c9;
 }
 
+.popUp_title {
+  background-color: #f7f7f7;
+  letter-spacing: 0.99px;
+  color: #111111;
+  font-size: 18px;
+  font-weight: bold;
+  width: 200px;
+  height: 100%;
+}
 .info_active {
   background-color: #66cdcc;
 }
 .info_passive {
   background-color: #d7d7d7;
 }
+.srchDiv_ttile{
+  width: 210px;
+  letter-spacing: 0.99px;
+  background-color: #F1F1F1;
+  color: #333333;
+}
+.term{
+  width: 90px;
+  height: 50px;
+  margin-right: 14px;
+  border-radius: 5px;
+  border: 1px solid #D7D7D7;
+  background-color: #F1F1F1;
+  letter-spacing: 0.88px;
+  color: #4D4D4D;
+  font-size: 16px;
+}
+
 </style>

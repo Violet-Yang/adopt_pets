@@ -7,7 +7,7 @@
     <!--content : 소품장터 게시판-->
     <div style="display: flex; justify-content: center;">
       <div>
-        <tapInImg :tap-cnt3="true" />
+        <tapInImg :tap-cnt3="true"/>
         <div>
           <!--검색bar주입-->
           <search-bar style="margin-top: 99px"/>

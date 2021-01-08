@@ -109,7 +109,7 @@ export default {
     },
     //커뮤니티
     goCommunity() {
-      this.$router.push({ path: "/community" });
+      this.$router.push({ path: "/noticeBoard" });
     },
     //메인이동
     goMain() {

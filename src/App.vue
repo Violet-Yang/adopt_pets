@@ -1,5 +1,5 @@
 <template>
-  <div id="app" @scroll="test" >
+  <div id="app">
     <router-view/>
   </div>
 </template>
@@ -14,21 +14,16 @@ export default {
     };
   },
   methods: {
-    test() {
-      console.log("11111");
-    },
+
   },
 
-  created() {
-    let vue = this;
-    document.addEventListener('scroll', vue.test())
 
-  }
 }
 </script>
 
 <style>
 @import "../assets/css/common.css";
+@import "../assets/css/library.css";
 
 html {
   width: 100%;

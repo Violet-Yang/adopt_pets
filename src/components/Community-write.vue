@@ -34,4 +34,14 @@ name: "Community-write",
 .quillWrapper .ql-snow.ql-toolbar {
   padding-top: 20px;
 }
+
+.main_img_text {
+  height: 69px;
+  text-align: center;
+  font: normal normal 800 60px/35px NanumGothic;
+  letter-spacing: -1.5px;
+  color: #FFFFFF;
+  opacity: 1;
+}
+
 </style>

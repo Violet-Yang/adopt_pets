@@ -20,13 +20,24 @@
       style="
         display: flex;
         position: absolute;
+
         top: 379px;
         width: 1200px;
         height: 70px;
       "
     >
-      <div class="tap2_in_img"><p>공지사항</p></div>
-      <div class="tap2_in_img"><p>집사게시판</p></div>
+      <div
+        @click="goNoticeBoard()"
+        :class="{ active_tap2 : isNotice, passive_tap2 : !isNotice }"
+      >
+        <p>공지사항</p>
+      </div>
+      <div
+        @click="goHostBoard()"
+        :class="{ active_tap2 : !isNotice, passive_tap2 : isNotice }"
+      >
+        <p>집사게시판</p>
+      </div>
     </div>
   </div>
 </template>
@@ -34,7 +45,15 @@
 <script>
 export default {
   name: "TapInImage",
-  props: ["tapCnt2", "tapCnt3", "isNotice"],
+  props: ["tapCnt2", "tapCnt3", "isNotice", "isBoard"],
+  methods: {
+    goHostBoard() { //집사게시판으로 이동
+      this.$router.push({ path: "/dogBoard" });
+    },
+    goNoticeBoard() { //공지사항으로 이동
+      this.$router.push({ path: "/noticeBoard" });
+    },
+  },
 };
 </script>
 
@@ -44,12 +63,21 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #000000;
-  opacity: 0.5;
+  /*background-color: #000000;*/
+  /*opacity: 0.5;*/
+  /*color: #ffffff;*/
+  cursor: pointer;
+}
+.active_tap2 {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
   color: #ffffff;
   cursor: pointer;
 }
-.tap2_in_img {
+.passive_tap2 {
   width: 50%;
   display: flex;
   justify-content: center;
@@ -59,8 +87,9 @@ export default {
   color: #ffffff;
   cursor: pointer;
 }
+
 div:nth-child(n) {
-  border-right: 1px solid #d4d4d4;
+  border-right: 1px solid #b7b7b7;
 }
 
 div:last-child {

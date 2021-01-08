@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "write"
+  name: "EtcBoard"
 }
 </script>
 

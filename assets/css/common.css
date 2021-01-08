@@ -1,6 +1,9 @@
-.quillWrapper .ql-snow.ql-toolbar {
-  padding-top: 200px !important;
-}
+/*.quillWrapper .ql-snow.ql-toolbar {*/
+/*  padding-top: 200px !important;*/
+/*}*/
+
+
+
 /*input창 css 커스터마이징*/
 input[type="text"],
 input[type="password"] {
@@ -25,17 +28,17 @@ input:focus {
   align-items: center;
 }
 /* flex 가로 center; */
-.flex-all-center {
+.flex-justify-center {
   display: flex;
   justify-content: center;
 }
 /* flex 세로 center; */
-.flex-all-center {
+.flex-align-center {
   display: flex;
   align-items: center;
 }
 /* flex 가로 between; */
-.flex-all-center {
+.flex-between {
   display: flex;
   justify-content: space-between;
 }

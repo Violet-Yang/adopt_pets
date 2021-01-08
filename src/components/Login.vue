@@ -22,7 +22,7 @@
           입양해듀오에 오신것을 환영합니다.<br> 아직 회원이 아니신분들은 간단
           회원가입으로 입양해듀오의 가족이 되어보세요.
         </p>
-<!--        <commDiv :id="id" :pw="pw" :placeholder="'가입 시 사용한 아이디'"/>-->
+        <commDiv :id="id" :pw="pw" :placeholder="'가입 시 사용한 아이디'"/>
         <input :bind="loginId" type="text">
         <input :bind="loginPwd" type="password">
         <div class="flex-mid" style="width: 658px;">
@@ -50,6 +50,7 @@ export default {
       data : { id: "admin",pw :"1233" },
       loginId : "",
       loginPwd : "",
+      name : "violet"
 
 
     }
@@ -58,9 +59,10 @@ export default {
 
     created () {
 
+
     },
     sendInfo () {
-      console.log("로그인ㅇ하기1111");
+      console.log('value : ${name}, type : ${typeof name}');
       let formData = new FormData();
       formData.append('userId', 'admin');
       formData.append('userPw', 'ddddd');

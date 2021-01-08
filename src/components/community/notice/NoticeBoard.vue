@@ -2,32 +2,20 @@
   <div>
     <!--header-->
     <top :is-comm="true" />
-    <img style="max-width: 1920px; position: relative" src="static/image/공지사항이미지.png" />
+    <img style="max-width: 1920px; position: relative" src="../../../../static/image/공지사항이미지.png" />
     <div style="position: absolute; top :191px; left: 821px;"  class="main_img_text">공지사항
     </div>
 
     <!--여분 div-->
     <div class="flex-all-center">
       <!--tap 컴포넌트 주입-->
-      <tap-in-img :tap-cnt2="true"/>
+      <tap-in-img :tap-cnt2="true" :is-notice="true"/>
       <div>
-        <div style="display: flex;  margin-top: 103px">
-          <div @click="tapDog()" style="width: 400px" class="board_tap" :class="{active_tap : status[0]===true, passive_tap : status[0]===false}">
-            <p>강아지 집사</p>
-          </div>
-          <div @click="tapCat()" style="width: 400px" class="board_tap" :class="{active_tap : status[1]===true, passive_tap : status[1]===false}">
-            <p>고양이 집사</p>
-          </div>
-          <div @click="tapExtra()" style="width: 400px" class="board_tap" :class="{active_tap : status[2]===true, passive_tap : status[2]===false}">
-            <p >기타동물 집사</p>
-          </div>
-
-        </div>
 
         <!--검색박스 컴포넌트 주입-->
-        <schDiv style="margin-top: 53px"/>
+        <schDiv style="margin-top: 100px"/>
         <!--게시판 테이블-->
-        <div style="margin-top: 14px; margin-bottom: 43px">
+        <div style="margin-top: 17px; border-top: 3px solid #66CDCC; margin-bottom: 43px">
           <div style="display: flex; height: 70px; width: 1200px">
             <div class="board_title" style="width: 144px">번호</div>
             <div class="board_title" style="width: 668px">제목</div>
@@ -90,7 +78,7 @@
 
 <script>
 export default {
-  name: "Community-notice",
+  name: "NoticeBoard",
   data() {
     return {
       status : [true,false,false],
@@ -170,7 +158,7 @@ export default {
   },
   methods : {
     goWriting() {
-      this.$router.push({path : "/writing"})
+      this.$router.push({path : "/writeNotice"})
     },
     tapDog () {
       console.log("tap1실행");

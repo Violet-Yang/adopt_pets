@@ -9,8 +9,12 @@ import Policy from "../components/Policy";
 import HomeAdopt from "../components/HomeAdopt";
 import CenterAdopt from "../components/CenterAdopt";
 import Market from "../components/Market";
-import Community from "../components/Community-notice";
-import Writing from "../components/Community-write"
+import NoticeBoard from "../components/community/notice/NoticeBoard"
+import WriteNotice from "../components/community/notice/Write"
+import CatBoard from "../components/community/board/CatBoard";
+import DogBoard from "../components/community/board/DogBoard";
+import EtcBoard from "../components/community/board/EtcBoard";
+
 import dmap from "../components/dmap";
 import Detail from "../components/Detail";
 import MyPurchase from "../components/myPage/buy/myPurchase";
@@ -74,14 +78,29 @@ export default new Router({
       component: Market
     },
     {
-      path: '/community',
-      name: 'Community',
-      component: Community
+      path: '/noticeBoard',
+      name: 'NoticeBoard',
+      component: NoticeBoard
     },
     {
-      path: '/writing',
-      name: 'Writing',
-      component: Writing
+      path: '/dogBoard',
+      name: 'DogBoard',
+      component: DogBoard
+    },
+    {
+      path: '/catBoard',
+      name: 'CatBoard',
+      component: CatBoard
+    },
+    {
+      path: '/etcBoard',
+      name: 'EtcBoard',
+      component: EtcBoard
+    },
+    {
+      path: '/writeNotice',
+      name: 'WriteNotice',
+      component: WriteNotice
     },
     {
       path: '/detail',
