@@ -2,15 +2,15 @@
   <div>
     <!--header-->
     <top :is-market="true" />
-    <img src="static/image/소품장터이미지.png" />
+    <img src="../../../static/image/소품장터이미지.png"/>
 
     <!--content : 소품장터 게시판-->
     <div style="display: flex; justify-content: center;">
       <div>
-        <tapInImg :tap-cnt3="true"/>
+        <tapInImg :tap-cnt3="true" is-etc="true"/>
         <div>
           <!--검색bar주입-->
-          <search-bar style="margin-top: 99px"/>
+          <search-bar style="margin-top: 99px;"/>
 
           <div v-if="afterClck" style="margin-top: 27px; text-align: left">
             <p>{{ afterClck }}</p>
@@ -51,7 +51,7 @@
                 <div style="width: 38px; height: 38px; margin-right: 13px;">
                   <img
                     style="width: 100%; height: 100%;"
-                    src="static/image/icon_circle_dog.png"
+                    src="../../../static/image/icon_circle_dog.png"
                   />
                 </div>
                 <span style="margin-right: 5px" >{{ item.id }}</span> | <span style="margin-left: 5px; margin-right: 5px">{{ item.addr }}</span> |
@@ -85,9 +85,9 @@
 </template>
 
 <script>
-import SearchBar from "./child/SearchBar";
+import SearchBar from "../child/SearchBar";
 export default {
-  name: "Market",
+  name: "Etc",
   components: { SearchBar },
   data() {
     return {
@@ -126,21 +126,11 @@ export default {
             "강아지 하네스팝니다 (시착 한번밖에 안한 제품이에요 ㅠㅠ)사이즈 L",
           img: "static/image/market1.png",
         },
-        {
-          id: "eldmsdl13",
-          addr: "장발산동",
-          data: "2020.11.29",
-          title:
-            "강아지 하네스팝니다 (시착 한번밖에 안한 제품이에요 ㅠㅠ)사이즈 L",
-          img: "static/image/market3.png",
-        },
+
       ],
     };
   },
-  created() {
-    console.log(this.goods[0].length);
 
-  }
 };
 </script>
 

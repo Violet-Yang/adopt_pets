@@ -105,6 +105,7 @@
               background-color: #898989;
               color: #ffffff;
               margin-top: 21px;
+              cursor: pointer;
             "
           >
             글쓰기

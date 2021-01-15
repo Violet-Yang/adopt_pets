@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Title",
   props: ["btnText"],
@@ -32,8 +34,19 @@ export default {
     };
   },
   methods : {
-    sendInfo () {
-
+    sendInfo (id, pw) {
+      console.log('value : ${name}, type : ${typeof name}');
+      let formData = new FormData();
+      formData.append('USER_ID', this.loginId );
+      formData.append('USER_PW', this.loginPwd);
+      axios.post('adoptDuo/login', formData)
+        .then(function (response) {
+          console.log('1111111');
+          console.log(response);
+        })
+        .catch(function (err){
+          console.log(err);
+        })
     }
   }
 };

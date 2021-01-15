@@ -27,12 +27,15 @@
       >
         <input
           type="text"
-          style="width: calc(100% - 5px); height: calc(100% - 2px); padding-left: 15px;"
+          v-model="message"
+          style="width: calc(95% - 5px); height: calc(100% - 2px); padding-left: 5px;"
           placeholder="내용을 입력해주세요"
+
         />
       </div>
 
       <div
+        @click="doSearch(message)"
         style="
         display: flex;
         align-items: center;
@@ -55,6 +58,17 @@
 <script>
 export default {
   name: "SearchBar",
+  props : ["isContent"],
+  data(){
+    return{
+      message : ""
+    }
+  },
+  methods : {
+    doSearch(addr){ //emit으로 이벤트 발생시키기
+      this.$emit('searching',this.message);
+    }
+  }
 };
 </script>
 

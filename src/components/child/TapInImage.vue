@@ -10,9 +10,9 @@
         height: 70px;
       "
     >
-      <div class="tap3_in_img"><p>강아지 소품</p></div>
-      <div class="tap3_in_img"><p>고양이 소품</p></div>
-      <div class="tap3_in_img"><p>기타동물 소품</p></div>
+      <div @click="goDog()" :class="{active_tap3 : isDog, passive_tap3 : !isDog}"><p>강아지 소품</p></div>
+      <div @click="goCat()" :class="{active_tap3 : isCat, passive_tap3 : !isCat}"><p>고양이 소품</p></div>
+      <div @click="goEtc()" :class="{active_tap3 : isEtc, passive_tap3 : !isEtc}"><p>기타동물 소품</p></div>
     </div>
 
     <div
@@ -45,7 +45,7 @@
 <script>
 export default {
   name: "TapInImage",
-  props: ["tapCnt2", "tapCnt3", "isNotice", "isBoard"],
+  props: ["tapCnt2", "tapCnt3", "isNotice", "isBoard", "isDog", "isCat", "isEtc"],
   methods: {
     goHostBoard() { //집사게시판으로 이동
       this.$router.push({ path: "/dogBoard" });
@@ -53,21 +53,43 @@ export default {
     goNoticeBoard() { //공지사항으로 이동
       this.$router.push({ path: "/noticeBoard" });
     },
+    goDog(){ //강아지소품
+      this.$router.push({path: "/market/dog"});
+    },
+    goCat(){ //고양이소품
+
+      this.$router.push({path: "/market/cat"});
+
+    },
+    goEtc(){ //강아지소품
+      this.$router.push({path: "/market/etc"});
+    }
   },
 };
 </script>
 
 <style scoped>
-.tap3_in_img {
+.active_tap3{
   width: 33.3333333333333333333333333333333333%;
   display: flex;
   justify-content: center;
   align-items: center;
-  /*background-color: #000000;*/
-  /*opacity: 0.5;*/
-  /*color: #ffffff;*/
+  background-color: rgba(37,37,37,0.5);
+  color: #ffffff;
   cursor: pointer;
 }
+
+.passive_tap3{
+  width: 33.3333333333333333333333333333333333%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  background-color: #000000;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
 .active_tap2 {
   width: 50%;
   display: flex;

@@ -8,7 +8,9 @@ import Company from "../components/Company";
 import Policy from "../components/Policy";
 import HomeAdopt from "../components/HomeAdopt";
 import CenterAdopt from "../components/CenterAdopt";
-import Market from "../components/Market";
+import Dog from "../components/market/dog";
+import Cat from "../components/market/Cat";
+import Etc from "../components/market/Etc";
 import NoticeBoard from "../components/community/notice/NoticeBoard"
 import WriteNotice from "../components/community/notice/Write"
 import CatBoard from "../components/community/board/CatBoard";
@@ -73,9 +75,19 @@ export default new Router({
       component: CenterAdopt
     },
     {
-      path: '/market',
-      name: 'Market',
-      component: Market
+      path: '/market/dog',
+      name: 'Dog',
+      component: Dog
+    },
+    {
+      path: '/market/cat',
+      name: 'Cat',
+      component: Cat
+    },
+    {
+      path: '/market/etc',
+      name: 'Etc',
+      component: Etc
     },
     {
       path: '/noticeBoard',

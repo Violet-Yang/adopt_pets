@@ -77,7 +77,7 @@
                 border-bottom: 1px solid #d7d7d7;
               "
             >
-              <div class="flex-all-center popUp_title">판매자아이디</div>
+              <div class="flex-all-center popUp_title">판매자 아이디</div>
               <div style="width: 347px">{{ business.seller }}</div>
               <div class="flex-all-center popUp_title">판매자 이름</div>
               <div style="width: 345px">{{ business.buyerName }}</div>
@@ -195,10 +195,10 @@
         >
           <div>
             <div
-              style="display: flex; width: 995px; height: 100px; border-bottom: 1px solid #D4D4D4"
+              style="display: flex; width: 995px; height: 100px; border-bottom: 1px solid #D4D4D4; z-index: 100"
             >
               <div class="flex-all-center srchDiv_ttile">기간검색</div>
-              <div style="display: flex; margin: 27px 17px 23px 27px" >
+              <div style="display: flex; padding-top: 25px; padding-left: 24px" >
                 <div class="flex-all-center term">
                   1주일
                 </div>
@@ -211,20 +211,76 @@
                 <div class="flex-all-center term">
                   6개월
                 </div>
+                <div style="width: 140px;height: 52px; border: 1px solid #D7D7D7;">
+                  <input type="date">
+                </div>
+                <div style="width: 40px; height: 40px">~</div>
+                <div style="width: 140px;height: 52px; border: 1px solid #D7D7D7;">
+                  <input type="date">
+                </div>
+
               </div>
             </div>
             <div
               style="width: 995px; height: 100px;"
-            ></div>
+            >
+              <div
+                style="display: flex; width: 100%; height: 100px;"
+              >
+                <div class="flex-all-center srchDiv_ttile">조건검색</div>
+                <!--카테고리 select Box-->
+                <div style="display: flex; margin-top: 24px; margin-left: 24px" >
+                  <div class="flex-all-center" style="width: 188px; height: 52px; border: 1px solid #D7D7D7;">
+                    <select v-model="val">
+                      <option disabled="disabled">카테고리</option>
+                      <option value="a">강아지</option>
+                      <option value="b">고양이</option>
+                      <option value="c">기타동물</option>
+                    </select>
+                  </div>
+                  <!--제목 select Box-->
+                  <div class="flex-all-center" style="margin-left: 15px; width: 134px; height: 52px; border: 1px solid #D7D7D7;">
+                    <select v-model="title">
+                      <option>제목</option>
+                      <option>내용</option>
+                    </select>
+                  </div>
+                  <!--검색어 입력 box-->
+                  <div class="flex-all-center" style="margin-left: 15px; width: 391px; height: 52px; border: 1px solid #D7D7D7;">
+                    <input type="text" placeholder="검색어를 입력하여 주세요.">
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
           </div>
           <div
+            class="flex-all-center"
             style="
               width: 205px;
               height: 200px;
             "
-          ></div>
+          >
+           <div
+             class="flex-all-center"
+             style="
+                width: 121px;
+                height: 45px;
+                color: white;
+                font-size: 16px;
+                background-color: #66CDCC;
+                border-radius: 10px;
+                cursor: pointer;">
+             검색
+           </div>
+          </div>
         </div>
+        <p style="margin-top: 30px; text-align: left; font-size: 18px; color: #999999">- 최근 1개월이 기본으로 조회되며, 기간 선택 후 조건검색이 가능합니다. <br>
+          - 최근 1년까지 기간이 조회 가능하며 그 이후 목록은 삭제됨을 알려드립니다.</p>
 
+        <!--3rd contents-->
         <div style="width: 1200px; margin-top: 79px">
           <!--title : my구매-->
           <div style="display: flex">
@@ -365,6 +421,8 @@ export default {
   name: "myPurchase",
   data() {
     return {
+      val : "카테고리",
+      title : "제목",
       id: "abcd1234",
       business: {
         status: false,
@@ -423,12 +481,17 @@ export default {
     },
   },
   watch: {
-    s2howStatus() {},
+    showStatus() {},
   },
 };
 </script>
 
 <style scoped>
+select{
+  width: 188px;
+}
+
+
 .popUp_board_name {
   margin-left: 2.5px;
   font-size: 25px;
@@ -457,6 +520,9 @@ export default {
   letter-spacing: 0.99px;
   background-color: #F1F1F1;
   color: #333333;
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 33;
 }
 .term{
   width: 90px;

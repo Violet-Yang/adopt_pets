@@ -6,6 +6,10 @@
     <!-- 이미지 슬라이드로 처리하기 -->
     <div class="main_img">
       <img src="../../static/image/slide2.png" style="width: 100%" />
+      <carousel
+        :perPage="1"
+
+      />
     </div>
 
     <!-- 컨텐츠 영역1 입양해듀오-->
@@ -109,7 +113,7 @@
       </div>
       <img
         class="scale"
-        @click="goBoard()"
+        @click="goCommunity()"
         style="position: absolute; left: 849px; top: 189.5px"
         src="../../static/image/go.png"
       />
@@ -192,6 +196,7 @@
 
 <script>
 import axios from "axios"; // Axios 임포트
+import { Carousel, Slide } from 'vue-carousel';
 import { adopt } from "./url";
 export default {
 
@@ -201,6 +206,9 @@ export default {
       sticky: 123,
       msg: "다음맵 테스트",
     };
+  },
+  components : {
+    Carousel, Slide
   },
   methods: {
     sendRequest() {
@@ -240,9 +248,11 @@ export default {
       this.$router.push({ path: "/market" });
     },
     //커뮤니티
-    goBoard() {
-      this.$router.push({ path: "/Board/" });
+    goCommunity() {
+      this.$router.push({ path: "/noticeBoard" });
     },
+
+
   },
   created() {
     this.sendRequest();
@@ -268,7 +278,7 @@ export default {
 }
 .main_img {
   display: flex;
-  width: 100%;
+  width: 1920px;
 }
 
 .baro {

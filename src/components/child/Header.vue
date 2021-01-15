@@ -105,7 +105,7 @@ export default {
     },
     //소품장터
     goMarket() {
-      this.$router.push({ path: "/market" });
+      this.$router.push({ path: "/market/dog" });
     },
     //커뮤니티
     goCommunity() {

@@ -3,10 +3,22 @@
 /*}*/
 
 
+/*select박스 css 커스터마이징 */
+select{
+  font-family: inherit;
+  /*webkit-appearance: none;*/
+  moz-appearance: none;
+  border: none;
+}
+select:focus {
+  outline: none;
+}
+
 
 /*input창 css 커스터마이징*/
 input[type="text"],
-input[type="password"] {
+input[type="password"]
+{
   width: calc(96% - 1px);
   height: calc(100% - 5px);
   font-family: inherit;
