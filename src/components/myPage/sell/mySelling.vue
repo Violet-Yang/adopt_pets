@@ -183,7 +183,7 @@
             >
               <div class="flex-all-center" style="width: 88px; height: 70px">
                 <div style="width: 22px; height: 22px">
-                  <input @change="checkAll()" type="checkbox" v-model="checkedAll" />
+                  <input @change="checkAdoptAll()" type="checkbox" v-model="checkedAllAdopt" />
                 </div>
               </div>
               <div class="flex-all-center" style="width: 1110px; height: 70px">
@@ -191,17 +191,18 @@
               </div>
             </div>
             <!--데이터 개수만큼 목록 나옴-->
+            <div v-if="adoptLists.length>0"
+                 v-for="items in adoptLists">
             <div
-              v-for="items in contents"
               style="
                 display: flex;
                 height: 212px;
                 border-bottom: 1px solid #d4d4d4;
               "
-              v-if="items.category === 'adopt'"
+
             >
               <div class="flex-all-center" style="width: 88px; height: 100%">
-                <input v-model="items.checked" type="checkbox" @change="checkCheckedBox()"/>
+                <input v-model="items.checked" type="checkbox" @change="checkAdoptBox()"/>
               </div>
               <div style="width: 906px; display: flex; align-items: center">
                 <div
@@ -252,11 +253,16 @@
                       {{ items.date }}
                     </span>
                   </div>
+                  <div style="margin-top: 13px; text-align: left; color: #999999;">
+                    <span class="board_small_ac">조회수</span><span class="board_small_nor">{{items.cont.toLocaleString()}}</span> | <span class="board_small_ac">리뷰문의</span>
+                    <span class="board_small_nor">{{items.review}}건</span><span>(미답변 :{{items.nonReview}})</span> | <span v-if="items.request.length>0" class="board_small_ac">구매요청건</span><span v-if="items.request.length>0" class="board_small_nor">{{items.request.length}}건</span>
+                  </div>
                 </div>
               </div>
               <div class="flex-all-center" style="width: 208px; height: 191px">
                 <div>
                   <div
+                    @click="showRequestBox()"
                     v-if="items.request.length > 0"
                     class="flex-all-center"
                     style="
@@ -299,6 +305,7 @@
                     문의답변
                   </div>
                   <div
+                    @click="deleteAdoptList()"
                     class="flex-all-center"
                     style="
                       margin-top: 14px;
@@ -315,9 +322,16 @@
                 </div>
               </div>
             </div>
+              <!--구매요청건 클릭 후 나오는 div-->
+              <div v-if="requestInAdopt && items.request.length>0"
+
+                   style="width: 1200px; background-color: #f7f7f7;">여기에 구매요청건 div</div>
+            </div>
+
             <div
-              @click="delAllData()"
+              @click="deleteAdoptList()"
               class="flex-all-center"
+
               style="
                 margin-top: 27px;
                 width: 150px;
@@ -332,7 +346,7 @@
               선택삭제
             </div>
           </div>
-          <!--찜목록 게시판 끝-->
+          <!--가정분양 판매 게시판 끝-->
         </div>
 
         <!--4rd contents-->
@@ -379,7 +393,7 @@
             >
               <div class="flex-all-center" style="width: 88px; height: 70px">
                 <div style="width: 22px; height: 22px">
-                  <input @change="checkAll()" type="checkbox" />
+                  <input @change="checkMarketAll()" type="checkbox" v-model="checkedAllMarket"/>
                 </div>
               </div>
               <div class="flex-all-center" style="width: 1110px; height: 70px">
@@ -397,7 +411,7 @@
               v-if="items.category === 'market'"
             >
               <div class="flex-all-center" style="width: 88px; height: 100%">
-                <input v-model="items.checked" type="checkbox" />
+                <input v-model="items.checked" type="checkbox" @change="checkMarketBox()" />
               </div>
               <div style="width: 906px; display: flex; align-items: center">
                 <div
@@ -555,7 +569,11 @@ export default {
   data() {
     return {
       id: "abcd1234",
-      checkedAll : false,
+      checkedAllAdopt : false,
+      checkedAllMarket : false,
+      requestInAdopt : false,
+      adoptLists : [], //가정분양 리스트
+      marketLists : [], //소품장터 리스트
       newArray: [], //선택삭제 버튼 눌렀을 때 filter함수의 리턴값
       contents_temp: [],
       contents: [
@@ -675,27 +693,66 @@ export default {
     //   }
     // },
 
-    checkAll() { //전체선택 & 전체선택 해제
+    checkAdoptAll() { // 가정분양 전체선택 & 전체선택 해제
       //category에 따라 다르게 작동하도록 파라미터를 넘겨줘야 함
       //filter사용하여 동일한 카테고리인 데이터만 작동하도록
       let vue = this;
-      this.contents.forEach(data=> {
-        data.checked = vue.checkedAll;
+      this.adoptLists.forEach(it=>{
+        it.checked = vue.checkedAllAdopt;
+      })
+      // this.contents.filter(it=>it.category==='adopt').forEach(data=> {
+      //   data.checked = vue.checkedAllAdopt;
+      // })
+    },
+    checkMarketAll() { // 소품분양 전체선택 & 전체선택 해제
+      //category에 따라 다르게 작동하도록 파라미터를 넘겨줘야 함
+      //filter사용하여 동일한 카테고리인 데이터만 작동하도록
+      let vue = this;
+      // this.contents.filter(it=>it.category==='market').forEach(data=> {
+      //   data.checked = vue.checkedAllMarket;
+      // })
+    },
+
+
+    checkAdoptBox(){ // 가정분양 전체선택 동적으로 불들어오도록
+      let vue = this;
+      this.checkedAllAdopt = true;
+      this.adoptLists.forEach(data=>{
+        if(!data.checked){
+          vue.checkedAllAdopt = false;
+        }
+      })
+      // this.adoptLists.filter(data=>data.category==='adopt').forEach(item=> {
+      //   if(!item.checked){
+      //     vue.checkedAllAdopt = false;
+      //   }
+      // })
+    },
+    checkMarketBox(){ // 소품장터 전체선택 동적으로 불들어오도록
+      let vue = this;
+      this.checkedAllMarket = true;
+      this.contents.filter(data=>data.category==='adopt').forEach(item=> {
+        if(!item.checked){
+          vue.checkedAllMarket = false;
+        }
       })
     },
 
-    checkCheckedBox(){ //전체선택 동적으로 불들어오도록
-      console.log("여기 메서트 진입");
+    deleteAdoptList(){ //분양 리스트 삭제
+      console.log("삭제함수 타기");
       let vue = this;
+      let newContents;
+      // this.contents.filter(it=>it.category==='adopt').forEach(function (item){
+      //   newContents = item.checked;
+      //   console.log(newContents);
+      // })
+      this.adoptLists = this.adoptLists.filter(item=>!item.checked);
+    },
+    deleteMarketList(){
 
-      this.checkedAll = true;
-      this.contents.forEach(item=> {
-        console.log("여기 메서트 진입2");
-        if(!item.checked){
-          vue.checkedAll = false;
-          console.log("여기 메서트 진입3");
-        }
-      })
+    },
+    showRequestBox(){ //구매요청건 보여주기
+      this.requestInAdopt = !this.requestInAdopt;
     },
 
     getMySellList(cancelId) {
@@ -749,6 +806,11 @@ export default {
         data.category = response.cate;
       });
     },
+  },
+  created() {
+    this.contents_temp = JSON.parse(JSON.stringify(this.contents));
+    this.adoptLists = this.contents_temp.filter(item=>item.category==='adopt');
+    this.marketLists = this.contents_temp.filter(item=>item.category==='market');
   },
   computed: {
 
