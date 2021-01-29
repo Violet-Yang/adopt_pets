@@ -12,47 +12,39 @@
       <tap-in-img :tap-cnt2="true" :is-notice="true"/>
       <div>
 
-        <!--검색박스 컴포넌트 주입-->
-        <schDiv style="margin-top: 100px" @searching="doSearch"/>
+
         <!--게시판 테이블-->
-        <div style="margin-top: 17px; border-top: 3px solid #66CDCC; margin-bottom: 43px">
-          <div style="display: flex; height: 70px; width: 1200px">
-            <div class="board_title" style="width: 144px">번호</div>
-            <div class="board_title" style="width: 668px">제목</div>
-            <div class="board_title" style="width: 184px">작성자</div>
-            <div class="board_title" style="width: 204px">등록일</div>
+        <div style="margin-top: 100px; width: 1200px; height: 1500px;
+        border-top: 3px solid #66CDCC; margin-bottom: 43px">
+          <div v-show="currentOjb.length>0" style="display: flex; height: 70px; background-color: #f7f7f7; border-bottom: 1px solid #b7b7b7;">
+            <div class="board_title" style="width: 600px; margin-left: 20px;">{{currentOjb.title}}</div>
+            <div class="board_title" style="width: 150px; margin-left: 200px; justify-content: center">{{currentOjb.host}}</div>
+            <div class="board_title" style="width: 150px; margin-left: 70px; justify-content: center">{{currentOjb.date}}</div>
           </div>
-          <div
-            v-for="eachBoard in itemBoard"
-            style="display: flex; height: 70px; width: 1200px"
-          >
-            <div class="board_writing" style="width: 144px">
-              {{ eachBoard.brdNum }}
-            </div>
-            <div class="board_writing" @click="goNoticeDetail(itemBoard,eachBoard.brdNum)" style="width: 668px; cursor: pointer">
-              {{ eachBoard.title }}
-            </div>
-            <div class="board_writing" style="width: 184px">
-              {{ eachBoard.host }}
-            </div>
-            <div class="board_writing" style="width: 204px">
-              {{ eachBoard.date }}
-            </div>
+          <div style="display: flex; height: 70px; border-bottom: 1px solid #b7b7b7;">
+            <div class="board_download" style="width: 600px; margin-left: 20px;">다운로드할 파일 이름</div>
+          </div>
+          <!-- 상세이미지 나오는 곳-->
+          <div v-show="currentOjb.length>0" class="flex-all-center" style="height: 1000px">
+            <img :src="currentOjb.context.img">
+
           </div>
 
-          <div @click="goWriting"
-               class="flex-all-center"
-               style="
-                    width: 149px;
-                    height: 50px;
-                    border-radius: 10px;
-                    background-color: #898989;
-                    color: #ffffff;
-                    margin-top: 21px;
-                  "
-          >
-            글쓰기
+          <div style="display: flex; height: 70px;border-top: 1px solid #b7b7b7; border-bottom: 1px solid #f1f1f1;">
+            <div class="board_download" style="width: 350px; margin-left: 20px; border-right: 1px solid #f1f1f1; ">
+              <div style="width: 50px">▲</div>
+              <div style="width: 100px;">상단글</div>
+            </div>
+            <div v-show="preObj.length>0" class="board_download" style="width: 950px; margin-left: 20px;">{{preObj.title}}</div>
           </div>
+          <div style="display: flex; height: 70px; border-bottom: 1px solid #b7b7b7;">
+            <div class="board_download" style="width: 350px; margin-left: 20px; border-right: 1px solid #f1f1f1; ">
+              <div style="width: 50px">▼</div>
+              <div style="width: 100px">하위글</div>
+            </div>
+            <div v-show="preObj.length>0" class="board_download" style="width: 950px; margin-left: 20px;">{{nextObj.title}}</div>
+          </div>
+
         </div>
 
         <!--        게시판 페이징처리-->
@@ -78,11 +70,14 @@
 
 <script>
 export default {
-  name: "NoticeBoard",
+  name: "NoticeDetail",
   data() {
     return {
       status : [true,false,false],
-      testBoard : [],
+      preObj : null, // 이전 글 :선택한 객체 이전 배열
+      currentOjb : null, //현재 배열:이전페이지에서 선택해서 넘어온 객체
+      nextObj : null, // 다음 글 :선택한 객체 다음 배열
+      itemList : [],
       itemBoard: [
         {
           brdNum: 1,
@@ -93,21 +88,21 @@ export default {
         },
         {
           brdNum: 2,
-          title: "공지사항입니다 2",
+          title: "공지사항 예비 텍스트 2",
           host: "관리자2",
           context: { text: "예비글2입니다", img: "static/image/baro1.png" },
           date: "2020.11.08",
         },
         {
           brdNum: 3,
-          title: "필독!!! 읽어보세요",
+          title: "공지사항 예비 텍스트 3",
           host: "관리자3",
           context: { text: "예비글3입니다", img: "static/image/baro1.png" },
           date: "2020.11.09",
         },
         {
           brdNum: 4,
-          title: "입듀 서비스 참고사항",
+          title: "공지사항 예비 텍스트 4",
           host: "관리자4",
           context: { text: "예비글4입니다", img: "static/image/baro1.png" },
           date: "2020.11.07",
@@ -119,61 +114,13 @@ export default {
           context: { text: "예비글5입니다", img: "static/image/baro1.png" },
           date: "2020.11.07",
         },
-        {
-          brdNum: 6,
-          title: "공지사항 예비 텍스트 6",
-          host: "관리자6",
-          context: { text: "예비글6입니다", img: "static/image/baro1.png" },
-          date: "2020.11.10",
-        },
-        {
-          brdNum: 7,
-          title: "공지사항 예비 텍스트 7",
-          host: "관리자7",
-          context: { text: "예비글7입니다", img: "static/image/baro1.png" },
-          date: "2020.11.12",
-        },
-        {
-          brdNum: 8,
-          title: "공지사항 예비 텍스트 8",
-          host: "관리자8",
-          context: { text: "예비글8입니다", img: "static/image/baro1.png" },
-          date: "2020.11.15",
-        },
-        {
-          brdNum: 9,
-          title: "공지사항 예비 텍스트 9",
-          host: "관리자9",
-          context: { text: "예비글9입니다", img: "static/image/baro1.png" },
-          date: "2020.11.16",
-        },
-        {
-          brdNum: 10,
-          title: "공지사항 예비 텍스트 10",
-          host: "관리자10",
-          context: { text: "예비글10입니다", img: "static/image/baro1.png" },
-          date: "2020.11.17",
-        },
+
       ],
     };
   },
   methods : {
-    doSearch(param){ //component 메서드 재정의하여 검색기능 구현하기
-      console.log(param);
-      this.itemBoard = this.testBoard.filter(item=>item.title.includes(param));
-    },
-
     goWriting() {
       this.$router.push({path : "/writeNotice"})
-    },
-    goNoticeDetail(item,num) {
-      let vue = this;
-      // console.log("파라미터 보내기 :"+item);
-      console.log(item);
-      console.log("넘어가는 id값:"+ num);
-      //
-      this.$router.push({name : "NoticeDetail", params : {object : JSON.stringify(item), id : num}});
-      // this.$router.push({name : "NoticeDetail", params : {title : item.title, host : item.host, regdate : item.date, contain : item.context, preItem : "", nextItem : ""} })
     },
     tapDog () {
       console.log("tap1실행");
@@ -198,7 +145,20 @@ export default {
     }
   },
   created() {
-    this.testBoard = JSON.parse(JSON.stringify(this.itemBoard)); //화면이 그려지고 난 뒤, itemBoard데이터를 복사하여 testBoard에 할당
+    let vue = this;
+    this.itemList = JSON.parse(this.$route.params.object);
+    let eachNum = this.$route.params.id;
+    console.log("itemList???" + this.itemList);
+    console.log("eachNum???" + eachNum);
+    this.itemList.forEach(it=> {
+      if(it.brdNum === eachNum){
+         vue.currentOjb = it;
+      }else if(it.brdNum === eachNum-1) {
+        vue.preObj = it;
+      }else if (it.brdNum === eachNum+1) {
+        vue.nextObj = it;
+      }
+    })
   }
 };
 </script>
@@ -222,12 +182,15 @@ export default {
 .board_title {
   display: flex;
   align-items: center;
-  justify-content: center;
   font-weight: bold;
   font-size: 18px;
   color: #111111;
-  background-color: #f7f7f7;
-  border-bottom: 1px solid #b7b7b7;
+}
+.board_download {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  color: #111111;
 }
 
 .active_tap {

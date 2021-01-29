@@ -199,18 +199,10 @@
             >
               <div class="flex-all-center srchDiv_ttile">기간검색</div>
               <div style="display: flex; padding-top: 25px; padding-left: 24px" >
-                <div class="flex-all-center term">
-                  1주일
+                <div v-for="term in period" class="flex-all-center term">
+                  <span style="cursor: pointer">{{term}}</span>
                 </div>
-                <div class="flex-all-center term">
-                  1개월
-                </div>
-                <div class="flex-all-center term">
-                  3개월
-                </div>
-                <div class="flex-all-center term">
-                  6개월
-                </div>
+
                 <div style="width: 140px;height: 52px; border: 1px solid #D7D7D7;">
                   <input type="date">
                 </div>
@@ -247,7 +239,7 @@
                   </div>
                   <!--검색어 입력 box-->
                   <div class="flex-all-center" style="margin-left: 15px; width: 391px; height: 52px; border: 1px solid #D7D7D7;">
-                    <input type="text" placeholder="검색어를 입력하여 주세요.">
+                    <input v-model="searchContext" type="text" placeholder="검색어를 입력하여 주세요.">
 
                   </div>
 
@@ -264,6 +256,7 @@
             "
           >
            <div
+             @click="doSearch(searchContext)"
              class="flex-all-center"
              style="
                 width: 121px;
@@ -307,7 +300,7 @@
               margin-top: 42px;
               margin-bottom: 100px;
               width: 1200px;
-              height: 280px;
+
             "
           >
             <div
@@ -315,6 +308,7 @@
                 display: flex;
                 background-color: #f7f7f7;
                 border-top: 3px solid #66cdcc;
+                border-bottom: 2px solid #b7b7b7;
                 font-size: 18px;
                 color: #111111;
                 font-weight: bold;
@@ -347,7 +341,7 @@
               v-for="item in contents"
               style="
                 display: flex;
-                border-top: 2px solid #b7b7b7;
+                border-bottom: 2px solid #b7b7b7;
                 font-size: 18px;
                 letter-spacing: 0.99px;
                 color: #111111;
@@ -421,6 +415,8 @@ export default {
   name: "myPurchase",
   data() {
     return {
+      period : ["1주일", "1개월","3개월", "6개월"],
+      searchContext : "", //검색어
       val : "카테고리",
       title : "제목",
       id: "abcd1234",
@@ -441,7 +437,7 @@ export default {
           category: "소품장터",
           title: "프리스비 판매(새거임)",
           seller: "zzangcomp",
-          date: "2020.12.31",
+          date: "2020.07.11",
           status: "waiting",
           info: true,
         },
@@ -450,7 +446,7 @@ export default {
           category: "가정견분양",
           title: "강아지분양",
           seller: "eldmsdl13",
-          date: "2020.01.01",
+          date: "2020.11.05",
           status: "complete",
           info: false,
         },
@@ -459,7 +455,43 @@ export default {
           category: "가정견분양",
           title: "시츄 분양합니당(1살)",
           seller: "violet0410",
-          date: "2020.01.01",
+          date: "2020.11.20",
+          status: "asking",
+          info: false,
+        },
+        {
+          num: 4,
+          category: "가정묘분양",
+          title: "오드아이 데려가세요(2살)",
+          seller: "campzzang",
+          date: "2020.12.17",
+          status: "asking",
+          info: true,
+        },
+        {
+          num: 3,
+          category: "가정견분양",
+          title: "시츄 분양합니당(1살)",
+          seller: "violet0410",
+          date: "2020.12.31",
+          status: "asking",
+          info: false,
+        },
+        {
+          num: 3,
+          category: "가정견분양",
+          title: "시츄 분양합니당(1살)",
+          seller: "violet0410",
+          date: "2021.01.08",
+          status: "asking",
+          info: false,
+        },
+        {
+          num: 3,
+          category: "가정견분양",
+          title: "시츄 분양합니당(1살)",
+          seller: "violet0410",
+          date: "2021.01.22",
           status: "asking",
           info: false,
         },
@@ -479,10 +511,20 @@ export default {
       //판매자정보보기
       this.business.status = !this.business.status;
     },
+    doSearch(searchContext){ //검색하기
+      console.log("v-model값:"+searchContext);
+      this.contents = this.contents.filter(data => data.title.includes(searchContext));
+    }
+
   },
   watch: {
     showStatus() {},
   },
+  computed : {
+    changingContext : function () {
+      // this.searchContext
+    }
+  }
 };
 </script>
 

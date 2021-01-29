@@ -65,7 +65,7 @@ export default {
     }
   },
   methods : {
-    doSearch(addr){ //emit으로 이벤트 발생시키기
+    doSearch(searchText){ //emit으로 이벤트 발생시키기
       this.$emit('searching',this.message);
     }
   }

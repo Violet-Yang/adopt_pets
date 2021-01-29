@@ -201,7 +201,7 @@
               v-if="items.category === 'adopt'"
             >
               <div class="flex-all-center" style="width: 88px; height: 100%">
-                <input v-model="items.checked" type="checkbox" />
+                <input v-model="items.checked" type="checkbox" @change="checkCheckedBox()"/>
               </div>
               <div style="width: 906px; display: flex; align-items: center">
                 <div
@@ -364,7 +364,7 @@
             거래완료가 되지 않을 시, 자동으로 글이 삭제됨을 알려드립니다.
           </p>
 
-          <!--  찜목록 테이블-->
+          <!--  소품장터 판매 테이블-->
           <div style="margin-top: 38px; margin-bottom: 100px; width: 1200px">
             <div
               style="
@@ -589,7 +589,7 @@ export default {
           status: "COMPLETED", // COMPLETED -> 분양완료, SELL -> 판매 중, DELETED -> 삭제
           reply: true,
           isClickBuy: false, // 구매 요청 보여주는 변수
-          checked: true, // 체크 여부 판단
+          checked: false, // 체크 여부 판단
         },
         {
           category: "adopt",
@@ -601,7 +601,12 @@ export default {
           addr: "백산동",
           cont: 512652,
           review: 7,
+          nonReview: 2, // 미답변
           request: [],
+          status: "COMPLETED", // COMPLETED -> 분양완료, SELL -> 판매 중, DELETED -> 삭제
+          reply: true,
+          isClickBuy: false, // 구매 요청 보여주는 변수
+          checked: false, // 체크 여부 판단
         },
         {
           category: "market",
@@ -613,7 +618,12 @@ export default {
           addr: "백산동",
           cont: 20730,
           review: 3,
+          nonReview: 3, // 미답변
           request: [],
+          status: "COMPLETED", // COMPLETED -> 분양완료, SELL -> 판매 중, DELETED -> 삭제
+          reply: true,
+          isClickBuy: false, // 구매 요청 보여주는 변수
+          checked: false, // 체크 여부 판단
         },
         {
           category: "market",
@@ -625,7 +635,12 @@ export default {
           addr: "백산동",
           cont: 512652,
           review: 7,
+          nonReview: 1, // 미답변
           request: [],
+          status: "COMPLETED", // COMPLETED -> 분양완료, SELL -> 판매 중, DELETED -> 삭제
+          reply: true,
+          isClickBuy: false, // 구매 요청 보여주는 변수
+          checked: false, // 체크 여부 판단
         },
       ],
     };
@@ -660,7 +675,7 @@ export default {
     //   }
     // },
 
-    checkAll(cateNum) { //전체선택 & 전체선택 해제
+    checkAll() { //전체선택 & 전체선택 해제
       //category에 따라 다르게 작동하도록 파라미터를 넘겨줘야 함
       //filter사용하여 동일한 카테고리인 데이터만 작동하도록
       let vue = this;
@@ -668,6 +683,21 @@ export default {
         data.checked = vue.checkedAll;
       })
     },
+
+    checkCheckedBox(){ //전체선택 동적으로 불들어오도록
+      console.log("여기 메서트 진입");
+      let vue = this;
+
+      this.checkedAll = true;
+      this.contents.forEach(item=> {
+        console.log("여기 메서트 진입2");
+        if(!item.checked){
+          vue.checkedAll = false;
+          console.log("여기 메서트 진입3");
+        }
+      })
+    },
+
     getMySellList(cancelId) {
       // 서버에서 조회 했을 때 컨텐츠를 설정해주는 곳(리프레시)
       let vue = this;

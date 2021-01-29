@@ -134,7 +134,7 @@ export default {
     getSearch(param){ // 지역 검색하기
       console.log("param:" + param);
       this.isLetter = param;
-     this.goods = this.goods.filter(data=>data.addr === param);
+     this.goods = this.goods.filter(data=>data.addr.includes(param));
     }
   }
 

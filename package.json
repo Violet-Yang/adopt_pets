@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js",
-    "prod-deploy": "npm run build && firebase target:apply hosting prod dangdang-37060 && firebase deploy --only hosting:prod"
+    "prod-deploy": "npm run build && firebase target:apply hosting prod adopt-pets-d01ec && firebase deploy --only hosting:prod"
   },
   "dependencies": {
     "axios": "^0.21.0",

@@ -107,14 +107,38 @@
           <input type="text" v-model="info.memberId" disabled="disabled"/>
         </div>
         <!--비번-->
-        <div class="inputBox">
-          <input type="password" :placeholder="'비밀번호 입력(8~10자 영,숫자 조합)'"/>
-        </div>
-        <!--비번확인-->
-        <div class="inputBox">
-          <input type="password" :placeholder="'비밀번호 확인'"/>
-        </div>
+        <div style="display: flex">
+          <div class="inputBox">
+           <input type="password" :placeholder="'현재 비밀번호'"/>
+          </div>
+          <div
+            @click="showPwdBox()"
+            class="flex-all-center"
+            style="
+              margin-top: 3px;
+              margin-left: 10px;
+              border-radius: 5px;
+              color: #ffffff;
+              background-color: #68c9c9;
+              width: 110px;
+              height: 48px;
+              cursor: pointer;
+            "
+          >
+            비번변경
 
+          </div>
+        </div>
+        <!--새 비밀번호-->
+        <div v-if="pwdBox">
+        <div class="inputBox">
+          <input type="password" :placeholder="'비밀번호 입력(8~10자 영,숫자 조합)'" v-model="info.newPwd" @change="checkPwd()"/>
+        </div>
+          <div class="inputBox">
+            <input type="password" :placeholder="'비밀번호 확인'" v-model="info.newPwd2" @change="checkPwd()"/>
+            <span v-if="checkPwd2">비밀번호확인해주세요</span>
+          </div>
+        </div>
         <!--전화번호-->
         <div class="inputBox">
           <input type="text" v-model="info.phone" />
@@ -155,7 +179,7 @@
 
         <!--btn 수정 -->
         <div
-          @click="sendEditedInfo()"
+          @click="editInfo()"
           class="flex-all-center"
           style="
             border-radius: 7px;
@@ -219,7 +243,7 @@
               "
             >
               회원탈퇴를 하시면 이제 입양해듀오의 정보, 거래등을 더이상 하실수
-              없어요. <br />그래도 탈퇴하시겠습니까?
+              없어요. <br/>그래도 탈퇴하시겠습니까?
             </p>
           </div>
         </div>
@@ -262,17 +286,21 @@ export default {
     return {
       daumPost : false,
       result : [],
+      pwdBox : false, //비밀번호 변경 div제어 변수
+      verifyPwd : "", //watch함수를 위한 전역변수
       info: {
         name: "김멍멍",
         birth: "1991.12.01",
         memberId: "abc123",
         memberPw: "1234",
-        memberPw2: "1234",
+        newPwd : "", //새 비밀번호
+        newPwd2 : "", //새 비밀번호 확인
         phone: "010-1213-9876",
         email: "abc123@naver.com",
         addr: "서울시 강남구 삼성동",
         detailAddr : "삼성아파트 101동 101호"
       },
+
     }
   },
   created() {
@@ -280,7 +308,12 @@ export default {
     // this.info.name = response.userName
   },
   methods : {
-    //정보수정 버튼 클릭
+    editInfo(){ //정보수정 클릭 without axios
+
+
+    },
+
+    //정보수정 버튼 클릭 with axios
     sendEditedInfo() {
       // let info = {
       //   name: "김멍멍",
@@ -306,13 +339,16 @@ export default {
       })
 
     },
+    showPwdBox(){ //비번변경 눌렀을 때
+      this.pwdBox = !this.pwdBox;
+    },
     //돌아가기 버튼 클릭
     backInitialInfo(){
+
       //api통신에서 받아온 데이터를 바인딩시킨 변수에 할당해준다
       //created주기에서 사용했던 로직 재활용
       //axios.get('dddddd',response)
     //.then(function (response){
-        console.log(response);
     //  })
       //this.info.name = response.userName;
     },
@@ -328,8 +364,31 @@ export default {
     //주소검색 닫기
     closeDaumPost(){
       this.daumPost = false;
+    },
+    checkPwd() {
+      if(this.info.newPwd !== this.info.newPwd2) {
+        alert("입력하신 두 개의 비밀번호가 일치하지 않습니다");
+      }
+    }
+  },
+  computed : {
+    checkPwd2: function () {
+      return this.info.newPwd !== this.info.newPwd2
+    },
+    verifyPwd : function () {
+      if(this.pwdBox){
+        if(this.info.newPwd !== this.info.newPwd2){
+          alert("입력하신 두 개의 비밀번호가 일치하지 않습니다");
+          this.info.newPwd = "";
+          this.info.newPwd2 = "";
+        }else {
+          this.verifyPwd = "입력하신 두 개의 비밀번호가 일치합니다.<br> 정보수정 버튼을 눌러주세요";
+        }
+      }
+      return this.verifyPwd;
     }
   }
+
 };
 </script>
 

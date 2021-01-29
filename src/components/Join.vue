@@ -34,7 +34,7 @@
                 border: 1px solid #b7b7b7;
               "
             >
-              <input type="text" placeholder="이름(실명을 기입해주십시오.)" />
+              <input :bind="user_name" type="text" placeholder="이름(실명을 기입해주십시오.)" />
             </div>
             <div
               style="
@@ -46,6 +46,7 @@
             >
               <input
                 type="text"
+                :bind = "user_phone"
                 placeholder="생년월일(ex.991213) 주민번호 앞자리 형식으로 입력해주십시오."
               />
             </div>
@@ -54,7 +55,7 @@
               <div
                 style="width: 538px; height: 70px; border: 1px solid #b7b7b7"
               >
-                <input type="text" placeholder="아이디(6~10자 영,숫자 조합)" />
+                <input type="text" :bind ="user_id" placeholder="아이디(6~10자 영,숫자 조합)" />
               </div>
               <div
                 class="flex-all-center"
@@ -80,7 +81,8 @@
               "
             >
               <input
-                type="text"
+                type="password"
+                :bind = "user_pw"
                 placeholder="비밀번호 입력(8~10자 영,숫자 조합)"
               />
             </div>
@@ -92,7 +94,7 @@
                 border: 1px solid #b7b7b7;
               "
             >
-              <input type="text" placeholder="비밀번호 확인" />
+              <input type="password" :bind = "user_pw2" placeholder="비밀번호 확인" />
             </div>
             <div
               style="
@@ -104,6 +106,7 @@
             >
               <input
                 type="text"
+                :bind = "user_phone"
                 placeholder="휴대폰번호('-'없이 입력하여 주십시오.)"
               />
             </div>
@@ -117,6 +120,7 @@
             >
               <input
                 type="text"
+                :bind = "user_email"
                 placeholder="이메일주소(비밀번호 분실 시 사용됩니다.)"
               />
             </div>
@@ -124,7 +128,7 @@
               <div
                 style="width: 538px; height: 70px; border: 1px solid #b7b7b7"
               >
-                <input type="text" placeholder="주소" />
+                <input type="text" :bind="user_addr" placeholder="주소" />
               </div>
               <div
                 class="flex-all-center"
@@ -148,7 +152,7 @@
                 border: 1px solid #b7b7b7;
               "
             >
-              <input type="text" placeholder="상세주소" />
+              <input type="text" :bind = "user_addr2" placeholder="상세주소" />
             </div>
           </div>
 
@@ -156,9 +160,9 @@
           <div style="margin-top: 64.46px">
             <div style="display: flex">
               <img src="static/image/발바닥아이콘.png" /><span
-                class="join_small_title"
-                >이용약관</span
-              >
+              class="join_small_title"
+            >이용약관</span
+            >
             </div>
             <textarea
               style="
@@ -226,7 +230,24 @@
               </div>
             </div>
 
-            <btn-divs style="margin-top: 40px;" :btn-text="'회원가입하기'" />
+            <div @click="doJoin()"
+                 style="
+              width: 658px;
+              height: 70px;
+              margin-top: 40px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: #66CDCC;
+              border-radius: 7px;
+              color: white;
+              letter-spacing: -0.45px;
+              font-size: 18px;
+            ">
+              회원가입하기
+            </div>
+
+            <!--            <btn-divs style="margin-top: 40px;" @click="doJoin()" :btn-text="'회원가입하기'" />-->
             <btn-divs style="margin-top : 16px; background-color: #b7b7b7" :btn-text="'취소하기'" />
           </div>
         </div>
@@ -239,15 +260,45 @@
 </template>
 
 <script>
+import axios from "axios";
+import { JOIN } from "./url"
 export default {
   name: "Join",
   data(){
     return {
-
+      //arr[5][2]
+      arr : [['a','b'], ['c', 'd'], ['e', 'f'], ['g', 'h'], ['i', 'j']],
+      user_name : "",
+      user_id : "",
+      user_pw : "",
+      user_pw2 : "",
+      user_phone : "",
+      user_addr : "",
+      user_addr2 : "",
+      user_email : ""
     }
   },
   methods : {
+    doJoin(){ //회원가입하기
+      //formData값 유효성 검사
+      let formData = new FormData();
+      formData.append("USER_ID", this.user_id);
+      formData.append("USER_PW", this.user_pw);
+      formData.append("USER_NAME", this.user_name);
+      formData.append("USER_PHONE", this.user_phone);
+      formData.append("USER_ADDR", this.user_addr);
+      formData.append("USER_EMAIL", this.user_email);
+      console.log("회원가입타기");
 
+      axios.post('adoptDuo/signUp', formData)
+        .then(function (response) {
+          console.log("회원가입 axios성공");
+          console.log(response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    }
 
   },
 

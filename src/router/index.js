@@ -12,10 +12,12 @@ import Dog from "../components/market/dog";
 import Cat from "../components/market/Cat";
 import Etc from "../components/market/Etc";
 import NoticeBoard from "../components/community/notice/NoticeBoard"
+import NoticeDetail from "../components/community/notice/NoticeDetail";
 import WriteNotice from "../components/community/notice/Write"
 import CatBoard from "../components/community/board/CatBoard";
 import DogBoard from "../components/community/board/DogBoard";
 import EtcBoard from "../components/community/board/EtcBoard";
+
 
 import dmap from "../components/dmap";
 import Detail from "../components/Detail";
@@ -114,6 +116,12 @@ export default new Router({
       name: 'WriteNotice',
       component: WriteNotice
     },
+    {
+      path: '/noticeDetail',
+      name: 'NoticeDetail',
+      component: NoticeDetail
+    },
+
     {
       path: '/detail',
       name: 'Detail',
