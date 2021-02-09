@@ -12,8 +12,11 @@ import TapInImage from "./components/child/TapInImage";
 import Filter from "./components/child/Filter";
 import MyPageBox from "./components/child/MyPageBox";
 import axios from 'axios' // Axios 임포트
+import VueMoment from 'vue-moment'
 
 Vue.config.productionTip = false
+
+Vue.use(VueMoment)
 
 Vue.component('top', Header)
 Vue.component('bottom', Footer)

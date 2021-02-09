@@ -197,18 +197,23 @@
             <div
               style="display: flex; width: 995px; height: 100px; border-bottom: 1px solid #D4D4D4; z-index: 100"
             >
-              <div class="flex-all-center srchDiv_ttile">기간검색</div>
+              <div class="flex-all-center srchDiv_title">기간검색</div>
               <div style="display: flex; padding-top: 25px; padding-left: 24px" >
-                <div v-for="term in period" class="flex-all-center term">
-                  <span style="cursor: pointer">{{term}}</span>
+                <div v-for="(each,index) in period" class="flex-all-center term">
+                  <div
+                    v-model="each.isChecked"
+                    :class="{check : each.isChecked, nonChecked : !each.isChecked}"
+                    style="cursor: pointer"
+                    @click="changCheck(each.id)"
+                  >{{each.duration}}</div>
                 </div>
 
                 <div style="width: 140px;height: 52px; border: 1px solid #D7D7D7;">
-                  <input type="date">
+                  <input type="date" v-model="startDate">
                 </div>
                 <div style="width: 40px; height: 40px">~</div>
                 <div style="width: 140px;height: 52px; border: 1px solid #D7D7D7;">
-                  <input type="date">
+                  <input type="date" v-model="endDate">
                 </div>
 
               </div>
@@ -219,23 +224,21 @@
               <div
                 style="display: flex; width: 100%; height: 100px;"
               >
-                <div class="flex-all-center srchDiv_ttile">조건검색</div>
+                <div class="flex-all-center srchDiv_title">조건검색</div>
                 <!--카테고리 select Box-->
                 <div style="display: flex; margin-top: 24px; margin-left: 24px" >
                   <div class="flex-all-center" style="width: 188px; height: 52px; border: 1px solid #D7D7D7;">
                     <select v-model="val">
                       <option disabled="disabled">카테고리</option>
-                      <option value="a">강아지</option>
-                      <option value="b">고양이</option>
-                      <option value="c">기타동물</option>
+                      <option value="market">소품장터</option>
+                      <option value="home">가정분양</option>
+
                     </select>
                   </div>
                   <!--제목 select Box-->
-                  <div class="flex-all-center" style="margin-left: 15px; width: 134px; height: 52px; border: 1px solid #D7D7D7;">
-                    <select v-model="title">
-                      <option>제목</option>
-                      <option>내용</option>
-                    </select>
+                  <div class="flex-all-center"
+                       style="margin-left: 15px; width: 134px; height: 52px; color: #999999; border: 1px solid #D7D7D7;">
+                    제목
                   </div>
                   <!--검색어 입력 box-->
                   <div class="flex-all-center" style="margin-left: 15px; width: 391px; height: 52px; border: 1px solid #D7D7D7;">
@@ -415,11 +418,20 @@ export default {
   name: "myPurchase",
   data() {
     return {
-      period : ["1주일", "1개월","3개월", "6개월"],
+      // conditions : [{period : ["1주일", "1개월", "3개월", "6개월"]}, {category : ["소품장터", "가정분양"]}],
+      period : [
+        {id : 1, duration : "1주일", isChecked : false},
+        {id : 2, duration : "1개월", isChecked : false},
+        {id : 3, duration : "3개월", isChecked : false},
+        {id : 4, duration : "6개월", isChecked : false}
+        ],
       searchContext : "", //검색어
       val : "카테고리",
       title : "제목",
       id: "abcd1234",
+      startDate: null,
+      endDate: null,
+      eachDate : [],
       business: {
         status: false,
         seller: "judhy90",
@@ -431,6 +443,7 @@ export default {
         buyerPhone: "010-9876-5432",
         buyerEmail: "abc123@naver.ocm",
       },
+      testContents : [], //검색기능 배열변수
       contents: [
         {
           num: 1,
@@ -512,9 +525,33 @@ export default {
       this.business.status = !this.business.status;
     },
     doSearch(searchContext){ //검색하기
-      console.log("v-model값:"+searchContext);
-      this.contents = this.contents.filter(data => data.title.includes(searchContext));
+     let startDate = this.$moment(new Date(this.startDate));
+     let endDate = this.$moment(new Date(this.endDate));
+     console.log(startDate);
+     console.log(endDate);
+     if(this.startDate===null || this.endDate===null){
+       alert("기간 선택을 다시 해주세요");
+     }else {
+       this.contents = this.testContents.filter(it=> this.$moment(it.date) - startDate > 0 && endDate - this.$moment(it.date) > 0);
+     }
+
+    },
+
+    changCheck(num){ //기간검색 조건 설정하기
+      this.period.forEach(function (it){
+        if(it.id === num){
+          it.isChecked = true;
+        }else {
+          it.isChecked = false;
+        }
+      })
     }
+
+  },
+
+  created() {
+   this.testContents = JSON.parse(JSON.stringify(this.contents));
+   console.log(this.testContents);
 
   },
   watch: {
@@ -557,7 +594,7 @@ select{
 .info_passive {
   background-color: #d7d7d7;
 }
-.srchDiv_ttile{
+.srchDiv_title{
   width: 210px;
   letter-spacing: 0.99px;
   background-color: #F1F1F1;
@@ -576,6 +613,15 @@ select{
   letter-spacing: 0.88px;
   color: #4D4D4D;
   font-size: 16px;
+}
+
+.check {
+  background-color: #66cdcc;
+  color: #FFFFFF;
+}
+.nonCheck {
+  background-color: #F1F1F1;
+  color: #4D4D4D;
 }
 
 </style>

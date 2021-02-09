@@ -34,6 +34,7 @@ export default {
     };
   },
   methods : {
+
     sendInfo (id, pw) {
       console.log('value : ${name}, type : ${typeof name}');
       let formData = new FormData();
@@ -47,6 +48,18 @@ export default {
         .catch(function (err){
           console.log(err);
         })
+      // let vue = this;
+      // //현재시간
+      // let startDate = this.$moment(this.startDate); // -> moment 클래스가 반환됨 => 1970 1.1 지정한 날짜까지의 밀리세컨드 => 타임스탬프라고 지칭
+      // let endDate = this.$moment(this.endDate);
+      // this.testContents.forEach(function (it) {
+      //   let momentDate = vue.$moment(it.date);
+      // });
+      // this.testContents = this.contents.filter(item => vue.$moment(item.date).diff(startDate) > 0 && endDate.diff(vue.$moment(item.date)) > 0)
+      // console.log(this.testContents);
+      // if(this.period === '1주일'){
+      // }
+      // this.contents = this.testContents.filter(data => data.date.includes(searchContext));
     }
   }
 };

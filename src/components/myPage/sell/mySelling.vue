@@ -37,10 +37,10 @@
             >
               <div class="flex-all-center srchDiv_ttile">기간검색</div>
               <div style="display: flex; padding-top: 25px; padding-left: 24px">
-                <div class="flex-all-center term">1주일</div>
-                <div class="flex-all-center term">1개월</div>
-                <div class="flex-all-center term">3개월</div>
-                <div class="flex-all-center term">6개월</div>
+                <div style="cursor: pointer" class="flex-all-center term" @click="getWeek()">1주일</div>
+                <div style="cursor: pointer" class="flex-all-center term" @click="get1month()">1개월</div>
+                <div style="cursor: pointer" class="flex-all-center term" @click="get3month()">3개월</div>
+                <div style="cursor: pointer" class="flex-all-center term" @click="get6month()">6개월</div>
                 <div
                   style="width: 140px; height: 52px; border: 1px solid #d7d7d7"
                 >
@@ -67,11 +67,11 @@
                       border: 1px solid #d7d7d7;
                     "
                   >
-                    <select v-model="val">
+                    <select v-model="category">
                       <option disabled="disabled">카테고리</option>
-                      <option value="a">강아지</option>
-                      <option value="b">고양이</option>
-                      <option value="c">기타동물</option>
+                      <option value="dog">강아지</option>
+                      <option value="cat">고양이</option>
+                      <option value="etc">기타동물</option>
                     </select>
                   </div>
                   <!--제목 select Box-->
@@ -183,7 +183,11 @@
             >
               <div class="flex-all-center" style="width: 88px; height: 70px">
                 <div style="width: 22px; height: 22px">
-                  <input @change="checkAdoptAll()" type="checkbox" v-model="checkedAllAdopt" />
+                  <input
+                    @change="checkAdoptAll()"
+                    type="checkbox"
+                    v-model="checkedAllAdopt"
+                  />
                 </div>
               </div>
               <div class="flex-all-center" style="width: 1110px; height: 70px">
@@ -191,147 +195,256 @@
               </div>
             </div>
             <!--데이터 개수만큼 목록 나옴-->
-            <div v-if="adoptLists.length>0"
-                 v-for="items in adoptLists">
-            <div
-              style="
-                display: flex;
-                height: 212px;
-                border-bottom: 1px solid #d4d4d4;
-              "
-
-            >
-              <div class="flex-all-center" style="width: 88px; height: 100%">
-                <input v-model="items.checked" type="checkbox" @change="checkAdoptBox()"/>
-              </div>
-              <div style="width: 906px; display: flex; align-items: center">
-                <div
-                  :class="{
-                    passive_dim: items.status,
-                    active_dim: !items.status,
-                  }"
-                  class="flex-all-center"
-                  style="position: relative; width: 150px; height: 128px"
-                >
-                  <img
-                    :src="items.img"
-                    style="z-index: 2; width: 150px; height: 128px"
+            <div v-if="adoptLists.length > 0" v-for="items in adoptLists">
+              <div
+                style="
+                  display: flex;
+                  height: 212px;
+                  border-bottom: 1px solid #d4d4d4;
+                  border-top: 1px solid #d4d4d4;
+                "
+              >
+                <div class="flex-all-center" style="width: 88px; height: 100%">
+                  <input
+                    v-model="items.checked"
+                    type="checkbox"
+                    @change="checkAdoptBox()"
                   />
-                  <span
-                    v-if="!items.status"
+                </div>
+                <div style="width: 906px; display: flex; align-items: center">
+                  <div
+                    :class="{
+                      passive_dim: items.status,
+                      active_dim: !items.status,
+                    }"
+                    class="flex-all-center"
+                    style="position: relative; width: 150px; height: 128px"
+                  >
+                    <img
+                      :src="items.img"
+                      style="z-index: 2; width: 150px; height: 128px"
+                    />
+                    <span
+                      v-if="!items.status"
+                      style="
+                        position: absolute;
+                        z-index: 3;
+                        width: 101px;
+                        height: 16px;
+                        background-color: #0a1103;
+                        font-size: 16px;
+                        color: #ffffff;
+                        letter-spacing: 0.88px;
+                        border-radius: 6px;
+                      "
+                      >거래완료</span
+                    >
+                  </div>
+                  <div style="padding-left: 21px; width: 100%; height: 100%">
+                    <!--왜 padding top을 위 div에 주면 div영역 기점으로 적용되는지-->
+                    <p
+                      style="
+                        padding-top: 30px;
+                        font-size: 18px;
+                        text-align: left;
+                        letter-spacing: 0.99px;
+                        color: #111111;
+                      "
+                    >
+                      {{ items.title }}
+                    </p>
+                    <div style="margin-top: 11px; text-align: left">
+                      <span class="seller_info"> {{ items.seller }} | </span>
+                      <span class="seller_info"> {{ items.addr }} | </span>
+                      <span class="seller_info">
+                        {{ items.date }}
+                      </span>
+                    </div>
+                    <div
+                      style="margin-top: 13px; text-align: left; color: #999999"
+                    >
+                      <span class="board_small_ac">조회수</span
+                      ><span class="board_small_nor">{{
+                        items.cont.toLocaleString()
+                      }}</span>
+                      | <span class="board_small_ac">리뷰문의</span>
+                      <span class="board_small_nor">{{ items.review }}건</span
+                      ><span>(미답변 :{{ items.nonReview }})</span> |
+                      <span
+                        v-if="items.request.length > 0"
+                        class="board_small_ac"
+                        >구매요청건</span
+                      ><span
+                        v-if="items.request.length > 0"
+                        class="board_small_nor"
+                        >{{ items.request.length }}건</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex-all-center"
+                  style="width: 208px; height: 191px"
+                >
+                  <div>
+                    <div
+                      @click="showRequestBox()"
+                      v-if="items.request.length > 0"
+                      class="flex-all-center"
+                      style="
+                        width: 150px;
+                        height: 51px;
+                        border-radius: 10px;
+                        color: #ffffff;
+                        background-color: #66cdcc;
+                        cursor: pointer;
+                      "
+                    >
+                      구매요청건
+                    </div>
+                    <div
+                      v-if="items.status==='COMPLETED'"
+                      class="flex-all-center"
+                      style="
+                        width: 150px;
+                        height: 51px;
+                        border-radius: 10px;
+                        color: #ffffff;
+                        background-color: #e1e1e1;
+                        cursor: pointer;
+                      "
+                    >
+                      분양완료
+                    </div>
+                    <div
+                      class="flex-all-center"
+                      style="
+                        margin-top: 14px;
+                        width: 150px;
+                        height: 51px;
+                        border-radius: 10px;
+                        color: #ffffff;
+                        background-color: #888888;
+                        cursor: pointer;
+                      "
+                    >
+                      문의답변
+                    </div>
+                    <div
+                      @click="deleteAdoptList()"
+                      class="flex-all-center"
+                      style="
+                        margin-top: 14px;
+                        width: 150px;
+                        height: 51px;
+                        border-radius: 10px;
+                        color: #ffffff;
+                        background-color: #888888;
+                        cursor: pointer;
+                      "
+                    >
+                      삭제
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--구매요청건 클릭 후 나오는 div-->
+              <div
+                v-if="requestInAdopt && items.request.length > 0"
+                style="width: 1200px; height: 100%; background-color: #f7f7f7"
+              >
+                <div
+                  style="
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    height: 62px;
+                  "
+                >
+                  <div
+                    @click="closeRequestBox()"
                     style="
                       position: absolute;
-                      z-index: 3;
-                      width: 101px;
-                      height: 16px;
-                      background-color: #0a1103;
-                      font-size: 16px;
-                      color: #ffffff;
-                      letter-spacing: 0.88px;
-                      border-radius: 6px;
-                    "
-                    >거래완료</span
-                  >
-                </div>
-                <div style="padding-left: 21px; width: 100%; height: 100%">
-                  <!--왜 padding top을 위 div에 주면 div영역 기점으로 적용되는지-->
-                  <p
-                    style="
-                      padding-top: 30px;
-                      font-size: 18px;
-                      text-align: left;
-                      letter-spacing: 0.99px;
-                      color: #111111;
+                      top: 0px;
+                      right: 10px;
+                      font-size: 35px;
+                      color: #636363;
+                      cursor: pointer;
                     "
                   >
-                    {{ items.title }}
-                  </p>
-                  <div style="margin-top: 11px; text-align: left">
-                    <span class="seller_info"> {{ items.seller }} | </span>
-                    <span class="seller_info"> {{ items.addr }} | </span>
-                    <span class="seller_info">
-                      {{ items.date }}
-                    </span>
-                  </div>
-                  <div style="margin-top: 13px; text-align: left; color: #999999;">
-                    <span class="board_small_ac">조회수</span><span class="board_small_nor">{{items.cont.toLocaleString()}}</span> | <span class="board_small_ac">리뷰문의</span>
-                    <span class="board_small_nor">{{items.review}}건</span><span>(미답변 :{{items.nonReview}})</span> | <span v-if="items.request.length>0" class="board_small_ac">구매요청건</span><span v-if="items.request.length>0" class="board_small_nor">{{items.request.length}}건</span>
+                    ×
                   </div>
                 </div>
-              </div>
-              <div class="flex-all-center" style="width: 208px; height: 191px">
-                <div>
+                <div v-for="(each, index) in items.request" style="width: 100%">
                   <div
-                    @click="showRequestBox()"
-                    v-if="items.request.length > 0"
-                    class="flex-all-center"
+                    :class="{ odd: index % 2 !== 0, even: index % 2 === 0 }"
                     style="
-                      width: 150px;
-                      height: 51px;
+                      display: flex;
+                      width: 1133px;
+                      height: 144px;
+                      margin-left: 33px;
+                      margin-bottom: 19px;
                       border-radius: 10px;
-                      color: #ffffff;
-                      background-color: #66cdcc;
-                      cursor: pointer;
                     "
                   >
-                    구매요청건
-                  </div>
-                  <div
-                    v-if="!items.status"
-                    class="flex-all-center"
-                    style="
-                      width: 150px;
-                      height: 51px;
-                      border-radius: 10px;
-                      color: #ffffff;
-                      background-color: #e1e1e1;
-                      cursor: pointer;
-                    "
-                  >
-                    거래불가
-                  </div>
-                  <div
-                    class="flex-all-center"
-                    style="
-                      margin-top: 14px;
-                      width: 150px;
-                      height: 51px;
-                      border-radius: 10px;
-                      color: #ffffff;
-                      background-color: #888888;
-                      cursor: pointer;
-                    "
-                  >
-                    문의답변
-                  </div>
-                  <div
-                    @click="deleteAdoptList()"
-                    class="flex-all-center"
-                    style="
-                      margin-top: 14px;
-                      width: 150px;
-                      height: 51px;
-                      border-radius: 10px;
-                      color: #ffffff;
-                      background-color: #888888;
-                      cursor: pointer;
-                    "
-                  >
-                    삭제
-                  </div>
-                </div>
-              </div>
-            </div>
-              <!--구매요청건 클릭 후 나오는 div-->
-              <div v-if="requestInAdopt && items.request.length>0"
+                    <div style="width: 109px; height: 144px; margin-left: 15px">
+                      <img src="static/image/icon_gomae.png" />
+                      <div style="color: #111111; font-weight: bold">
+                        구매자
+                      </div>
+                      <div style="font-size: 14px">{{ each.purchaser }}</div>
+                    </div>
 
-                   style="width: 1200px; background-color: #f7f7f7;">여기에 구매요청건 div</div>
+                    <div
+                      style="
+                        width: 823px;
+                        height: 81px;
+                        margin-left: 20px;
+                        margin-top: 23px;
+                      "
+                    >
+                      {{ each.content }}
+                    </div>
+                    <div style="width: 85px; height: 110px; margin-left: 60px">
+                      <div
+                        style="
+                          width: 85px;
+                          height: 50px;
+                          border-radius: 5px;
+                          margin-top: 13px;
+                        "
+                        class="flex-all-center"
+                        :class="{
+                          accept_odd: index % 2 !== 0,
+                          accept_even: index % 2 === 0,
+                        }"
+                      >
+                        거래수락
+                      </div>
+                      <div
+                        style="
+                          width: 85px;
+                          height: 50px;
+                          border-radius: 5px;
+                          margin-top: 9px;
+                        "
+                        class="flex-all-center"
+                        :class="{
+                          cancel_odd: index % 2 !== 0,
+                          cancel_even: index % 2 === 0,
+                        }"
+                      >
+                        거래취소
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div
               @click="deleteAdoptList()"
               class="flex-all-center"
-
               style="
                 margin-top: 27px;
                 width: 150px;
@@ -393,7 +506,11 @@
             >
               <div class="flex-all-center" style="width: 88px; height: 70px">
                 <div style="width: 22px; height: 22px">
-                  <input @change="checkMarketAll()" type="checkbox" v-model="checkedAllMarket"/>
+                  <input
+                    @change="checkMarketAll()"
+                    type="checkbox"
+                    v-model="checkedAllMarket"
+                  />
                 </div>
               </div>
               <div class="flex-all-center" style="width: 1110px; height: 70px">
@@ -411,7 +528,11 @@
               v-if="items.category === 'market'"
             >
               <div class="flex-all-center" style="width: 88px; height: 100%">
-                <input v-model="items.checked" type="checkbox" @change="checkMarketBox()" />
+                <input
+                  v-model="items.checked"
+                  type="checkbox"
+                  @change="checkMarketBox()"
+                />
               </div>
               <div style="width: 906px; display: flex; align-items: center">
                 <div
@@ -439,7 +560,7 @@
                       letter-spacing: 0.88px;
                       border-radius: 6px;
                     "
-                  >거래완료</span
+                    >거래완료</span
                   >
                 </div>
                 <div style="padding-left: 21px; width: 100%; height: 100%">
@@ -462,8 +583,16 @@
                       {{ items.date }}
                     </span>
                   </div>
-                  <div style="margin-top: 13px; text-align: left; color: #999999;">
-                    <span class="board_small_ac">조회수</span><span class="board_small_nor">{{items.cont.toLocaleString()}}</span> | <span class="board_small_ac">리뷰문의</span><span class="board_small_nor">{{items.review}}건</span><span>(미답변 :{{items.nonReview}})</span>
+                  <div
+                    style="margin-top: 13px; text-align: left; color: #999999"
+                  >
+                    <span class="board_small_ac">조회수</span
+                    ><span class="board_small_nor">{{
+                      items.cont.toLocaleString()
+                    }}</span>
+                    | <span class="board_small_ac">리뷰문의</span
+                    ><span class="board_small_nor">{{ items.review }}건</span
+                    ><span>(미답변 :{{ items.nonReview }})</span>
                   </div>
                 </div>
               </div>
@@ -547,13 +676,6 @@
           </div>
           <!--찜목록 게시판 끝-->
         </div>
-
-
-
-
-
-
-
       </div>
     </div>
     <!--footer-->
@@ -569,11 +691,11 @@ export default {
   data() {
     return {
       id: "abcd1234",
-      checkedAllAdopt : false,
-      checkedAllMarket : false,
-      requestInAdopt : false,
-      adoptLists : [], //가정분양 리스트
-      marketLists : [], //소품장터 리스트
+      checkedAllAdopt: false,
+      checkedAllMarket: false,
+      requestInAdopt: false,
+      adoptLists: [], //가정분양 리스트
+      marketLists: [], //소품장터 리스트
       newArray: [], //선택삭제 버튼 눌렀을 때 filter함수의 리턴값
       contents_temp: [],
       contents: [
@@ -604,7 +726,7 @@ export default {
                 "스피츠가 전부터 키워보고 싶었는데 사진보자마자 첫눈에 반해버렸어요. 이 아이는 정말 첫눈에 저의 가족이 될 아이라고 확신이 들었습니다. 정말 제가 책임지고 키울자신 있습니다. 우선 구매문의 남겨봅니다.",
             },
           ],
-          status: "COMPLETED", // COMPLETED -> 분양완료, SELL -> 판매 중, DELETED -> 삭제
+          status: "SELL", // COMPLETED -> 분양완료, SELL -> 판매 중, DELETED -> 삭제
           reply: true,
           isClickBuy: false, // 구매 요청 보여주는 변수
           checked: false, // 체크 여부 판단
@@ -693,18 +815,20 @@ export default {
     //   }
     // },
 
-    checkAdoptAll() { // 가정분양 전체선택 & 전체선택 해제
+    checkAdoptAll() {
+      // 가정분양 전체선택 & 전체선택 해제
       //category에 따라 다르게 작동하도록 파라미터를 넘겨줘야 함
       //filter사용하여 동일한 카테고리인 데이터만 작동하도록
       let vue = this;
-      this.adoptLists.forEach(it=>{
+      this.adoptLists.forEach((it) => {
         it.checked = vue.checkedAllAdopt;
-      })
+      });
       // this.contents.filter(it=>it.category==='adopt').forEach(data=> {
       //   data.checked = vue.checkedAllAdopt;
       // })
     },
-    checkMarketAll() { // 소품분양 전체선택 & 전체선택 해제
+    checkMarketAll() {
+      // 소품분양 전체선택 & 전체선택 해제
       //category에 따라 다르게 작동하도록 파라미터를 넘겨줘야 함
       //filter사용하여 동일한 카테고리인 데이터만 작동하도록
       let vue = this;
@@ -713,32 +837,36 @@ export default {
       // })
     },
 
-
-    checkAdoptBox(){ // 가정분양 전체선택 동적으로 불들어오도록
+    checkAdoptBox() {
+      // 가정분양 전체선택 동적으로 불들어오도록
       let vue = this;
       this.checkedAllAdopt = true;
-      this.adoptLists.forEach(data=>{
-        if(!data.checked){
+      this.adoptLists.forEach((data) => {
+        if (!data.checked) {
           vue.checkedAllAdopt = false;
         }
-      })
+      });
       // this.adoptLists.filter(data=>data.category==='adopt').forEach(item=> {
       //   if(!item.checked){
       //     vue.checkedAllAdopt = false;
       //   }
       // })
     },
-    checkMarketBox(){ // 소품장터 전체선택 동적으로 불들어오도록
+    checkMarketBox() {
+      // 소품장터 전체선택 동적으로 불들어오도록
       let vue = this;
       this.checkedAllMarket = true;
-      this.contents.filter(data=>data.category==='adopt').forEach(item=> {
-        if(!item.checked){
-          vue.checkedAllMarket = false;
-        }
-      })
+      this.contents
+        .filter((data) => data.category === "adopt")
+        .forEach((item) => {
+          if (!item.checked) {
+            vue.checkedAllMarket = false;
+          }
+        });
     },
 
-    deleteAdoptList(){ //분양 리스트 삭제
+    deleteAdoptList() {
+      //분양 리스트 삭제
       console.log("삭제함수 타기");
       let vue = this;
       let newContents;
@@ -746,13 +874,20 @@ export default {
       //   newContents = item.checked;
       //   console.log(newContents);
       // })
-      this.adoptLists = this.adoptLists.filter(item=>!item.checked);
+      this.adoptLists = this.adoptLists.filter((item) => !item.checked);
     },
-    deleteMarketList(){
+    deleteMarketList() {},
+    showRequestBox() {
+      //구매요청건 보여주기
+      this.requestInAdopt = true;
+    },
+    closeRequestBox() {
+      //구매요청건 닫기
+      this.requestInAdopt = false;
+    },
 
-    },
-    showRequestBox(){ //구매요청건 보여주기
-      this.requestInAdopt = !this.requestInAdopt;
+    getWeek(){
+      //1주일
     },
 
     getMySellList(cancelId) {
@@ -809,13 +944,14 @@ export default {
   },
   created() {
     this.contents_temp = JSON.parse(JSON.stringify(this.contents));
-    this.adoptLists = this.contents_temp.filter(item=>item.category==='adopt');
-    this.marketLists = this.contents_temp.filter(item=>item.category==='market');
+    this.adoptLists = this.contents_temp.filter(
+      (item) => item.category === "adopt"
+    );
+    this.marketLists = this.contents_temp.filter(
+      (item) => item.category === "market"
+    );
   },
-  computed: {
-
-
-  },
+  computed: {},
 };
 </script>
 
@@ -840,19 +976,18 @@ export default {
   color: #4d4d4d;
   font-size: 16px;
 }
-.board_small_ac{
+.board_small_ac {
   font-size: 16px;
   font-weight: bold;
   color: #66cdcc;
   letter-spacing: 0.88px;
 }
-.board_small_nor{
+.board_small_nor {
   font-size: 16px;
   color: #999999;
   margin-left: 6px;
   letter-spacing: 0.88px;
 }
-
 
 input[type="checkbox"] {
   width: 22px;
@@ -882,5 +1017,57 @@ input[type="checkbox"] {
 }
 span.seller_info:nth-child(n) {
   border-right: #d4d4d4;
+}
+
+.odd {
+  /*홀수 인덱스 일 때 배경색*/
+  background-color: #ffffff;
+  text-align: left;
+  letter-spacing: 0.99px;
+  color: #66cdcc;
+  font-size: 18px;
+}
+
+.even {
+  /*짝수 인덱스 일 때 배경색*/
+  background-color: #66cdcc;
+  text-align: left;
+  letter-spacing: 0.99px;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.accept_odd {
+  /*홀수 인덱스 일 때 거래수락*/
+  background-color: #ffffff;
+  border: 3px solid #66cdcc;
+  letter-spacing: 0.99px;
+  color: #66cdcc;
+  font-size: 18px;
+}
+.accept_even {
+  /*짝수 인덱스 일 때 거래수락*/
+  background-color: #ffffff;
+  border: 3px solid #ffffff;
+  letter-spacing: 0.99px;
+  color: #66cdcc;
+  font-size: 18px;
+}
+
+.cancel_odd {
+  /*홀수 인덱스 일 때 거래취소*/
+  background-color: #66cdcc;
+  border: 3px solid #66cdcc;
+  letter-spacing: 0.99px;
+  color: #ffffff;
+  font-size: 18px;
+}
+.cancel_even {
+  /*홀수 인덱스 일 때 거래취소*/
+  background-color: #66cdcc;
+  border: 3px solid #ffffff;
+  letter-spacing: 0.99px;
+  color: #ffffff;
+  font-size: 18px;
 }
 </style>
