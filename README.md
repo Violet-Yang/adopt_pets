@@ -1,6 +1,7 @@
 # dangdang
 
 > **A Vue.js project**
+> 
 > 반려동물을 입양하고 소품을 거래하는 플랫폼입니다.
 
 ## Build Setup
