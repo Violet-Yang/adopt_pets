@@ -1,7 +1,6 @@
 # 입양해듀오
 
-![img_main_dangdang](https://user-images.githubusercontent.com/50068478/111102708-1049f800-8590-11eb-9a2f-83d6ae4b71e4.jpg)
-
+![img_main_dangdang](https://user-images.githubusercontent.com/50068478/111102837-5ef79200-8590-11eb-836a-846cef3149af.jpg)
 
 
 > **A Vue.js project**
