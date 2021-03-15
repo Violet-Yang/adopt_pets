@@ -1,6 +1,6 @@
 # dangdang
 
-> A Vue.js project
+> A Vue.js project입니다.
 
 ## Build Setup
 
